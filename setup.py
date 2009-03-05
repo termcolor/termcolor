@@ -16,62 +16,26 @@
 # You should have received a copy of the GNU General Public License
 # along with termcolor.  If not, see <http://www.gnu.org/licenses/>.
 
-
+import os
 from distutils.core import setup
 
-long_desc="""
-Available text colors
----------------------
-    red, green, yellow, blue, magenta, cyan, white.
 
-Available text highlights
--------------------------
-    on_red, on_green, on_yellow, on_blue, on_magenta, on_cyan, on_white.
+LONG_DESC = open(os.path.join(os.path.dirname(__file__), 'README.txt')).read()
+CHANGES = open(os.path.join(os.path.dirname(__file__), 'CHANGES.txt')).read()
+LONG_DESC += '\nCHANGES\n=======\n\n' + CHANGES
 
-Available attributes
---------------------
-    bold, dark, underline, blink, reverse, concealed.
-
-Example
--------
-::
-
-    from termcolor import colored
-
-    print colored('Hello, World!', 'red', attrs=['reverse', 'blink'])
-    print colored('Hello, World!', 'green', 'on_red')
-
-
-Terminal properties
--------------------
-============ ======= ==== ===== ========== ======= =======
-Terminal     bold    dark under blink      reverse conceal
------------- ------- ---- ----- ---------- ------- -------
-xterm        yes     no   yes   bold       yes     yes
-linux        yes     yes  bold  yes        yes     no
-rxvt         yes     no   yes   bold/black yes     no
-dtterm       yes     yes  yes   reverse    yes     yes
-teraterm     reverse no   yes   rev/red    yes     no
-aixterm      normal  no   yes   no         yes     yes
-PuTTY        color   no   yes   no         yes     no
-Windows      no      no   no    no         yes     no
-Cygwin SSH   yes     no   color color      color   yes
-Mac Terminal yes     no   yes   yes        yes     yes
-============ ======= ==== ===== ========== ======= =======
-
-"""
 
 setup(name='termcolor',
-      version='0.1',
+      version='0.1.1',
       description='ANSII Color formatting for output in terminal.',
-      long_description=long_desc,
+      long_description=LONG_DESC,
       author='Konstantin Lepa',
       license='GPL',
       author_email='konstantin.lepa@gmail.com',
       url='http://pypi.python.org/pypi/termcolor',
       py_modules=['termcolor'],
       classifiers=[
-          'Development Status :: 4 - Beta',
+          'Development Status :: 5 - Production/Stable',
           'Environment :: Console',
           'Intended Audience :: Developers',
           'License :: OSI Approved :: GNU General Public License (GPL)',

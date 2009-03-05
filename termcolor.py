@@ -1,4 +1,4 @@
-# Copyright (C) 2008 Konstantin Lepa <konstantin.lepa@gmail.com>.
+# Copyright (C) 2008-2009 Konstantin Lepa <konstantin.lepa@gmail.com>.
 #
 # This file is part of termcolor.
 #
@@ -23,7 +23,7 @@ import os
 __ALL__ = [ 'colored' ]
 
 
-attributes = dict(
+ATTRIBUTES = dict(
         zip([
             'bold',
             'dark',
@@ -37,10 +37,10 @@ attributes = dict(
             range(1, 9)
             )
         )
-del attributes['']
+del ATTRIBUTES['']
 
 
-highlights = dict(
+HIGHLIGHTS = dict(
         zip([
             'on_grey',
             'on_red',
@@ -56,7 +56,7 @@ highlights = dict(
         )
 
 
-colors = dict(
+COLORS = dict(
         zip([
             'grey',
             'red',
@@ -70,6 +70,9 @@ colors = dict(
             range(30, 38)
             )
         )
+
+
+RESET = '\033[0m'
 
 
 def colored(text, color=None, on_color=None, attrs=None):
@@ -91,18 +94,16 @@ def colored(text, color=None, on_color=None, attrs=None):
     if os.getenv('ANSI_COLORS_DISABLED') is None:
         fmt_str = '\033[1;%dm%s'
         if color is not None:
-            text = fmt_str % (colors[color], text)
+            text = fmt_str % (COLORS[color], text)
 
         if on_color is not None:
-            text = fmt_str % (highlights[on_color], text)
+            text = fmt_str % (HIGHLIGHTS[on_color], text)
 
         if attrs is not None:
             for attr in attrs:
-                text = fmt_str % (attributes[attr], text)
+                text = fmt_str % (ATTRIBUTES[attr], text)
 
-        reset = '\033[1;m'
-        text += reset
-
+        text += RESET
     return text
 
 
