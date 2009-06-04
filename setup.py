@@ -26,7 +26,7 @@ LONG_DESC += '\nCHANGES\n=======\n\n' + CHANGES
 
 
 setup(name='termcolor',
-      version='0.1.1',
+      version='0.1.2',
       description='ANSII Color formatting for output in terminal.',
       long_description=LONG_DESC,
       author='Konstantin Lepa',
