@@ -11,8 +11,8 @@ Available attributes
 --------------------
     bold, dark, underline, blink, reverse, concealed.
 
-Example
--------
+Example for Python 2.x
+----------------------
 ::
 
     from termcolor import colored
@@ -23,6 +23,19 @@ Example
     red_on_cyan = lambda x: colored(x, 'red', 'on_cyan')
     print red_on_cyan('Hello, World!')
     print red_on_cyan('Hello, Universe!')
+
+Example for Python 3.x
+----------------------
+::
+
+    from termcolor import colored
+
+    print((colored('Hello, World!', 'red', attrs=['reverse', 'blink'])))
+    print((colored('Hello, World!', 'green', 'on_red')))
+
+    red_on_cyan = lambda x: colored(x, 'red', 'on_cyan')
+    print((red_on_cyan('Hello, World!')))
+    print((red_on_cyan('Hello, Universe!')))
 
 
 Terminal properties

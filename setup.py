@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3.1
 # Copyright (C) 2008 Konstantin Lepa <konstantin.lepa@gmail.com>.
 #
 # This file is part of termcolor.
@@ -26,7 +26,7 @@ LONG_DESC += '\nCHANGES\n=======\n\n' + CHANGES
 
 
 setup(name='termcolor',
-      version='0.1.2',
+      version='0.2',
       description='ANSII Color formatting for output in terminal.',
       long_description=LONG_DESC,
       author='Konstantin Lepa',
