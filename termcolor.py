@@ -28,7 +28,7 @@ import os
 
 __ALL__ = [ 'colored' ]
 
-VERSION = (1, 0, 0)
+VERSION = (1, 0, 1)
 
 ATTRIBUTES = dict(
         list(zip([
