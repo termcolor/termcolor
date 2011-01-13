@@ -1,28 +1,22 @@
-Example for Python 2.x
-======================
+Example
+=======
     ::
 
-        from termcolor import colored
+        import sys
+        from termcolor import colored, cprint
 
-        print colored('Hello, World!', 'red', attrs=['reverse', 'blink'])
-        print colored('Hello, World!', 'green', 'on_red')
+        text = colored('Hello, World!', 'red', attrs=['reverse', 'blink'])
+        print(text)
+        cprint('Hello, World!', 'green', 'on_red')
 
-        red_on_cyan = lambda x: colored(x, 'red', 'on_cyan')
-        print red_on_cyan('Hello, World!')
-        print red_on_cyan('Hello, Universe!')
+        print_red_on_cyan = lambda x: cprint(x, 'red', 'on_cyan')
+        print_red_on_cyan('Hello, World!')
+        print_red_on_cyan('Hello, Universe!')
 
-Example for Python 3.x
-======================
-    ::
+        for i in range(10):
+            cprint(i, 'magenta', end=' ')
 
-        from termcolor import colored
-
-        print((colored('Hello, World!', 'red', attrs=['reverse', 'blink'])))
-        print((colored('Hello, World!', 'green', 'on_red')))
-
-        red_on_cyan = lambda x: colored(x, 'red', 'on_cyan')
-        print((red_on_cyan('Hello, World!')))
-        print((red_on_cyan('Hello, Universe!')))
+        cprint("Attention!", 'red', attrs=['bold'], file=sys.stderr)
 
 Text Properties
 ===============

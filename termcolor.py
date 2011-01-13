@@ -23,12 +23,13 @@
 
 """ANSII Color formatting for output in terminal."""
 
+from __future__ import print_function
 import os
 
 
-__ALL__ = [ 'colored' ]
+__ALL__ = [ 'colored', 'cprint' ]
 
-VERSION = (1, 0, 1)
+VERSION = (1, 1, 0)
 
 ATTRIBUTES = dict(
         list(zip([
@@ -114,45 +115,54 @@ def colored(text, color=None, on_color=None, attrs=None):
     return text
 
 
+def cprint(text, color=None, on_color=None, attrs=None, **kwargs):
+    """Print colorize text.
+
+    It accepts arguments of print function.
+    """
+
+    print((colored(text, color, on_color, attrs)), **kwargs)
+
+
 if __name__ == '__main__':
-    print(('Current terminal type: ', os.getenv('TERM')))
+    print('Current terminal type: %s' % os.getenv('TERM'))
     print('Test basic colors:')
-    print((colored('Grey color', 'grey')))
-    print((colored('Red color', 'red')))
-    print((colored('Green color', 'green')))
-    print((colored('Yellow color', 'yellow')))
-    print((colored('Blue color', 'blue')))
-    print((colored('Magenta color', 'magenta')))
-    print((colored('Cyan color', 'cyan')))
-    print((colored('White color', 'white')))
+    cprint('Grey color', 'grey')
+    cprint('Red color', 'red')
+    cprint('Green color', 'green')
+    cprint('Yellow color', 'yellow')
+    cprint('Blue color', 'blue')
+    cprint('Magenta color', 'magenta')
+    cprint('Cyan color', 'cyan')
+    cprint('White color', 'white')
     print(('-' * 78))
 
     print('Test highlights:')
-    print((colored('On grey color', on_color='on_grey')))
-    print((colored('On red color', on_color='on_red')))
-    print((colored('On green color', on_color='on_green')))
-    print((colored('On yellow color', on_color='on_yellow')))
-    print((colored('On blue color', on_color='on_blue')))
-    print((colored('On magenta color', on_color='on_magenta')))
-    print((colored('On cyan color', on_color='on_cyan')))
-    print((colored('On white color', color='grey', on_color='on_white')))
-    print(('-' * 78))
+    cprint('On grey color', on_color='on_grey')
+    cprint('On red color', on_color='on_red')
+    cprint('On green color', on_color='on_green')
+    cprint('On yellow color', on_color='on_yellow')
+    cprint('On blue color', on_color='on_blue')
+    cprint('On magenta color', on_color='on_magenta')
+    cprint('On cyan color', on_color='on_cyan')
+    cprint('On white color', color='grey', on_color='on_white')
+    print('-' * 78)
 
     print('Test attributes:')
-    print((colored('Bold grey color', 'grey', attrs=['bold'])))
-    print((colored('Dark red color', 'red', attrs=['dark'])))
-    print((colored('Underline green color', 'green', attrs=['underline'])))
-    print((colored('Blink yellow color', 'yellow', attrs=['blink'])))
-    print((colored('Reversed blue color', 'blue', attrs=['reverse'])))
-    print((colored('Concealed Magenta color', 'magenta', attrs=['concealed'])))
-    print((colored('Bold underline reverse cyan color', 'cyan',
-            attrs=['bold', 'underline', 'reverse'])))
-    print((colored('Dark blink concealed white color', 'white',
-            attrs=['dark', 'blink', 'concealed'])))
+    cprint('Bold grey color', 'grey', attrs=['bold'])
+    cprint('Dark red color', 'red', attrs=['dark'])
+    cprint('Underline green color', 'green', attrs=['underline'])
+    cprint('Blink yellow color', 'yellow', attrs=['blink'])
+    cprint('Reversed blue color', 'blue', attrs=['reverse'])
+    cprint('Concealed Magenta color', 'magenta', attrs=['concealed'])
+    cprint('Bold underline reverse cyan color', 'cyan',
+            attrs=['bold', 'underline', 'reverse'])
+    cprint('Dark blink concealed white color', 'white',
+            attrs=['dark', 'blink', 'concealed'])
     print(('-' * 78))
 
     print('Test mixing:')
-    print((colored('Underline red on grey color', 'red', 'on_grey',
-            ['underline'])))
-    print((colored('Reversed green on red color', 'green', 'on_red', ['reverse'])))
+    cprint('Underline red on grey color', 'red', 'on_grey',
+            ['underline'])
+    cprint('Reversed green on red color', 'green', 'on_red', ['reverse'])
 
