@@ -22,22 +22,18 @@
 #
 # Author: Konstantin Lepa <konstantin.lepa@gmail.com>
 
-import os
-from distutils.core import setup
-
-prjdir = os.path.dirname(__file__)
-
-def read(filename):
-    return open(os.path.join(prjdir, filename)).read()
-
-LONG_DESC = read('README.rst') + '\nCHANGES\n=======\n\n' + read('CHANGES.rst')
+from setuptools import setup
 
 from termcolor import VERSION
+
+with open("README.md") as f:
+    long_description = f.read()
 
 setup(name='termcolor',
       version='.'.join([str(v) for v in VERSION]),
       description='ANSII Color formatting for output in terminal.',
-      long_description=LONG_DESC,
+      long_description=long_description,
+      long_description_content_type="text/markdown",
       author='Konstantin Lepa',
       license='MIT',
       author_email='konstantin.lepa@gmail.com',
