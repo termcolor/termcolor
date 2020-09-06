@@ -22,15 +22,18 @@
 #
 # Author: Konstantin Lepa <konstantin.lepa@gmail.com>
 
-from setuptools import setup
-
-from termcolor import VERSION
+from setuptools import find_packages, setup
 
 with open("README.md") as f:
     long_description = f.read()
 
+
+def local_scheme(version):
+    """Skip the local version (eg. +xyz of 0.6.1.dev4+gdf99fe2)
+    to be able to upload to Test PyPI"""
+    return ""
+
 setup(name='termcolor',
-      version='.'.join([str(v) for v in VERSION]),
       description='ANSII Color formatting for output in terminal.',
       long_description=long_description,
       long_description_content_type="text/markdown",
@@ -38,7 +41,10 @@ setup(name='termcolor',
       license='MIT',
       author_email='konstantin.lepa@gmail.com',
       url='http://pypi.python.org/pypi/termcolor',
-      py_modules=['termcolor'],
+      packages=find_packages(where="src"),
+      package_dir={"": "src"},
+      use_scm_version={"local_scheme": local_scheme},
+      setup_requires=["setuptools_scm"],
       classifiers=[
           'Development Status :: 5 - Production/Stable',
           'Environment :: Console',
