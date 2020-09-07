@@ -32,28 +32,28 @@ def local_scheme(version):
     to be able to upload to Test PyPI"""
     return ""
 
-setup(name='termcolor',
-      description='ANSII Color formatting for output in terminal.',
-      long_description=long_description,
-      long_description_content_type="text/markdown",
-      author='Konstantin Lepa',
-      license='MIT',
-      author_email='konstantin.lepa@gmail.com',
-      url='http://pypi.python.org/pypi/termcolor',
-      packages=find_packages(where="src"),
-      package_dir={"": "src"},
-      use_scm_version={"local_scheme": local_scheme},
-      setup_requires=["setuptools_scm"],
-    extras_require={
-        "tests": ["pytest", "pytest-cov"],
-    },
-      classifiers=[
-          'Development Status :: 5 - Production/Stable',
-          'Environment :: Console',
-          'Intended Audience :: Developers',
-          'License :: OSI Approved :: MIT License',
-          'Operating System :: OS Independent',
-          'Programming Language :: Python',
-          'Topic :: Terminals'
-          ]
-      )
+
+setup(
+    name="termcolor",
+    description="ANSII Color formatting for output in terminal.",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    author="Konstantin Lepa",
+    license="MIT",
+    author_email="konstantin.lepa@gmail.com",
+    url="http://pypi.python.org/pypi/termcolor",
+    packages=find_packages(where="src"),
+    package_dir={"": "src"},
+    use_scm_version={"local_scheme": local_scheme},
+    setup_requires=["setuptools_scm"],
+    extras_require={"tests": ["pytest", "pytest-cov"]},
+    classifiers=[
+        "Development Status :: 5 - Production/Stable",
+        "Environment :: Console",
+        "Intended Audience :: Developers",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
+        "Programming Language :: Python",
+        "Topic :: Terminals",
+    ],
+)
