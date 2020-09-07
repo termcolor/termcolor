@@ -25,39 +25,39 @@ cprint("Attention!", "red", attrs=["bold"], file=sys.stderr)
 
 Text colors:
 
-  - grey
-  - red
-  - green
-  - yellow
-  - blue
-  - magenta
-  - cyan
-  - white
+- grey
+- red
+- green
+- yellow
+- blue
+- magenta
+- cyan
+- white
 
 Text highlights:
 
-  - on_grey
-  - on_red
-  - on_green
-  - on_yellow
-  - on_blue
-  - on_magenta
-  - on_cyan
-  - on_white
+- on_grey
+- on_red
+- on_green
+- on_yellow
+- on_blue
+- on_magenta
+- on_cyan
+- on_white
 
 Attributes:
 
-  - bold
-  - dark
-  - underline
-  - blink
-  - reverse
-  - concealed
+- bold
+- dark
+- underline
+- blink
+- reverse
+- concealed
 
 ## Terminal properties
 
 | Terminal     | bold    | dark | underline | blink      | reverse | concealed |
-|--------------|---------|------|---------- |------------|---------|-----------|
+| ------------ | ------- | ---- | --------- | ---------- | ------- | --------- |
 | xterm        | yes     | no   | yes       | bold       | yes     | yes       |
 | linux        | yes     | yes  | bold      | yes        | yes     | no        |
 | rxvt         | yes     | no   | yes       | bold/black | yes     | no        |
