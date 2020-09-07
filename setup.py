@@ -45,6 +45,9 @@ setup(name='termcolor',
       package_dir={"": "src"},
       use_scm_version={"local_scheme": local_scheme},
       setup_requires=["setuptools_scm"],
+    extras_require={
+        "tests": ["pytest", "pytest-cov"],
+    },
       classifiers=[
           'Development Status :: 5 - Production/Stable',
           'Environment :: Console',
