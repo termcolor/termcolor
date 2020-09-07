@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# coding: utf-8
 # Copyright (c) 2008-2011 Volvox Development Team
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
