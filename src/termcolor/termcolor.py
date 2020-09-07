@@ -1,4 +1,3 @@
-# coding: utf-8
 # Copyright (c) 2008-2011 Volvox Development Team
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -23,7 +22,6 @@
 
 """ANSII Color formatting for output in terminal."""
 
-from __future__ import print_function
 import os
 
 
@@ -135,7 +133,7 @@ if __name__ == '__main__':
     cprint('Magenta color', 'magenta')
     cprint('Cyan color', 'cyan')
     cprint('White color', 'white')
-    print(('-' * 78))
+    print('-' * 78)
 
     print('Test highlights:')
     cprint('On grey color', on_color='on_grey')
@@ -159,7 +157,7 @@ if __name__ == '__main__':
             attrs=['bold', 'underline', 'reverse'])
     cprint('Dark blink concealed white color', 'white',
             attrs=['dark', 'blink', 'concealed'])
-    print(('-' * 78))
+    print('-' * 78)
 
     print('Test mixing:')
     cprint('Underline red on grey color', 'red', 'on_grey',
