@@ -11,15 +11,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.6", "3.7", "3.8"]
+        python-version: ["3.6", "3.7", "3.8", "3.9-dev"]
         os: [ubuntu-latest, macos-latest, windows-latest]
         include:
           # Include new variables for Codecov
           - { codecov-flag: GHA_Ubuntu, os: ubuntu-latest }
           - { codecov-flag: GHA_macOS, os: macos-latest }
           - { codecov-flag: GHA_Windows, os: windows-latest }
-          # Dev versions
-          - { python-version: 3.9-dev, os: ubuntu-latest }
+          # Deadsnakes versions
           - { python-version: 3.10-dev, os: ubuntu-latest }
 
     steps:
@@ -27,12 +26,12 @@ jobs:
 
       - name: Set up Python ${{ matrix.python-version }} (deadsnakes)
         uses: deadsnakes/action@v1.0.0
-        if: endsWith(matrix.python-version, '-dev')
+        if: contains(matrix.python-version, '3.10-dev')
         with:
           python-version: ${{ matrix.python-version }}
 
       - name: Set up Python ${{ matrix.python-version }}
-        if: "!endsWith(matrix.python-version, '-dev')"
+        if: "!contains(matrix.python-version, '3.10-dev')"
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
