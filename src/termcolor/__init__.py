@@ -1,3 +1,19 @@
-from termcolor.termcolor import colored, cprint
+from termcolor.termcolor import (
+    ATTRIBUTES,
+    COLORS,
+    HIGHLIGHTS,
+    RESET,
+    VERSION,
+    colored,
+    cprint,
+)
 
-__all__ = ["colored", "cprint"]
+__all__ = [
+    "ATTRIBUTES",
+    "COLORS",
+    "HIGHLIGHTS",
+    "RESET",
+    "VERSION",
+    "colored",
+    "cprint",
+]
