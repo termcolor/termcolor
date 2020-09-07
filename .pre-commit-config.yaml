@@ -5,6 +5,15 @@ repos:
       - id: pyupgrade
         args: ["--py36-plus"]
 
+  - repo: https://github.com/psf/black
+    rev: 20.8b1
+    hooks:
+      - id: black
+        args: ["--target-version", "py36"]
+        # override until resolved: https://github.com/psf/black/issues/402
+        files: \.pyi?$
+        types: []
+
   - repo: https://github.com/pre-commit/pygrep-hooks
     rev: v1.6.0
     hooks:
