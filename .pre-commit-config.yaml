@@ -14,6 +14,17 @@ repos:
         files: \.pyi?$
         types: []
 
+  - repo: https://github.com/PyCQA/isort
+    rev: 5.5.1
+    hooks:
+      - id: isort
+
+  - repo: https://gitlab.com/pycqa/flake8
+    rev: 3.8.3
+    hooks:
+      - id: flake8
+        additional_dependencies: [flake8-2020, flake8-implicit-str-concat]
+
   - repo: https://github.com/pre-commit/pygrep-hooks
     rev: v1.6.0
     hooks:
@@ -27,7 +38,7 @@ repos:
       - id: check-yaml
 
   - repo: https://github.com/prettier/prettier
-    rev: 2.0.5
+    rev: 2.1.1
     hooks:
       - id: prettier
         args: [--prose-wrap=always, --print-width=88]
