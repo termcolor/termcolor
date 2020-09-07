@@ -24,7 +24,6 @@
 
 import os
 
-
 __ALL__ = ["colored", "cprint"]
 
 VERSION = (1, 1, 0)
