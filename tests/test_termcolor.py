@@ -1,3 +1,5 @@
+import os
+
 import pytest
 
 from termcolor import ATTRIBUTES, COLORS, HIGHLIGHTS, colored, cprint
@@ -5,6 +7,14 @@ from termcolor import ATTRIBUTES, COLORS, HIGHLIGHTS, colored, cprint
 ALL_COLORS = list(COLORS) + [None]
 ALL_HIGHLIGHTS = list(HIGHLIGHTS) + [None]
 ALL_ATTRIBUTES = list(ATTRIBUTES) + [None]
+
+
+def setup_module():
+    # By default, make sure no env vars already set for tests
+    try:
+        del os.environ["ANSI_COLORS_DISABLED"]
+    except KeyError:
+        pass
 
 
 def test_basic():
