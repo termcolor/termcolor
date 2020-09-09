@@ -79,3 +79,19 @@ def test_on_color(capsys, on_color, expected):
 def test_attrs(capsys, attr, expected):
     assert colored("text", attrs=[attr]) == expected
     assert_cprint(capsys, expected, "text", attrs=[attr])
+
+
+@pytest.mark.parametrize(
+    "test_value",
+    [
+        "true",
+        "false",
+        "1",
+        "0",
+        "",
+    ],
+)
+def test_env_var_ansi_colors_disabled(monkeypatch, test_value):
+    """Assert nothing applied when ANSI_COLORS_DISABLED set, regardless of value."""
+    monkeypatch.setenv("ANSI_COLORS_DISABLED", test_value)
+    assert colored("text", color="red") == "text"
