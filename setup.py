@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# coding: utf-8
 # Copyright (c) 2008-2011 Volvox Development Team
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -33,25 +32,45 @@ def local_scheme(version):
     to be able to upload to Test PyPI"""
     return ""
 
-setup(name='termcolor',
-      description='ANSII Color formatting for output in terminal.',
-      long_description=long_description,
-      long_description_content_type="text/markdown",
-      author='Konstantin Lepa',
-      license='MIT',
-      author_email='konstantin.lepa@gmail.com',
-      url='http://pypi.python.org/pypi/termcolor',
-      packages=find_packages(where="src"),
-      package_dir={"": "src"},
-      use_scm_version={"local_scheme": local_scheme},
-      setup_requires=["setuptools_scm"],
-      classifiers=[
-          'Development Status :: 5 - Production/Stable',
-          'Environment :: Console',
-          'Intended Audience :: Developers',
-          'License :: OSI Approved :: MIT License',
-          'Operating System :: OS Independent',
-          'Programming Language :: Python',
-          'Topic :: Terminals'
-          ]
-      )
+
+setup(
+    name="termcolor",
+    description="ANSII color formatting for output in terminal",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    author="Konstantin Lepa",
+    url="https://github.com/hugovk/termcolor",
+    project_urls={"Source": "https://github.com/hugovk/termcolor"},
+    license="MIT",
+    author_email="konstantin.lepa@gmail.com",
+    keywords=[
+        "termcolor",
+        "terminal",
+        "ANSII color",
+        "ANSII colour",
+        "ANSII",
+        "color",
+        "colour",
+        "formatting",
+    ],
+    packages=find_packages(where="src"),
+    package_dir={"": "src"},
+    use_scm_version={"local_scheme": local_scheme},
+    setup_requires=["setuptools_scm"],
+    extras_require={"tests": ["pytest", "pytest-cov"]},
+    python_requires=">=3.6",
+    classifiers=[
+        "Development Status :: 5 - Production/Stable",
+        "Environment :: Console",
+        "Intended Audience :: Developers",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3 :: Only",
+        "Topic :: Terminals",
+    ],
+)
