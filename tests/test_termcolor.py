@@ -13,7 +13,7 @@ def setup_module():
     # By default, make sure no env vars already set for tests
     try:
         del os.environ["ANSI_COLORS_DISABLED"]
-    except KeyError:
+    except KeyError:  # pragma: no cover
         pass
 
 
@@ -92,6 +92,13 @@ def test_attrs(capsys, attr, expected):
 
 
 @pytest.mark.parametrize(
+    "test_env_var",
+    [
+        "ANSI_COLORS_DISABLED",
+        "NO_COLOR",
+    ],
+)
+@pytest.mark.parametrize(
     "test_value",
     [
         "true",
@@ -101,7 +108,7 @@ def test_attrs(capsys, attr, expected):
         "",
     ],
 )
-def test_env_var_ansi_colors_disabled(monkeypatch, test_value):
-    """Assert nothing applied when ANSI_COLORS_DISABLED set, regardless of value."""
-    monkeypatch.setenv("ANSI_COLORS_DISABLED", test_value)
+def test_env_var(monkeypatch, test_env_var, test_value):
+    """Assert nothing applied when this env var set, regardless of value."""
+    monkeypatch.setenv(test_env_var, test_value)
     assert colored("text", color="red") == "text"

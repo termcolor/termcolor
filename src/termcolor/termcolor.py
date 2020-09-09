@@ -20,7 +20,7 @@
 #
 # Author: Konstantin Lepa <konstantin.lepa@gmail.com>
 
-"""ANSII Color formatting for output in terminal."""
+"""ANSII color formatting for output in terminal."""
 
 import os
 
@@ -105,20 +105,21 @@ def colored(text, color=None, on_color=None, attrs=None):
         colored('Hello, World!', 'red', 'on_grey', ['blue', 'blink'])
         colored('Hello, World!', 'green')
     """
-    if os.getenv("ANSI_COLORS_DISABLED") is None:
-        fmt_str = "\033[%dm%s"
-        if color is not None:
-            text = fmt_str % (COLORS[color], text)
+    if "NO_COLOR" in os.environ or "ANSI_COLORS_DISABLED" in os.environ:
+        return text
 
-        if on_color is not None:
-            text = fmt_str % (HIGHLIGHTS[on_color], text)
+    fmt_str = "\033[%dm%s"
+    if color is not None:
+        text = fmt_str % (COLORS[color], text)
 
-        if attrs is not None:
-            for attr in attrs:
-                text = fmt_str % (ATTRIBUTES[attr], text)
+    if on_color is not None:
+        text = fmt_str % (HIGHLIGHTS[on_color], text)
 
-        text += RESET
-    return text
+    if attrs is not None:
+        for attr in attrs:
+            text = fmt_str % (ATTRIBUTES[attr], text)
+
+    return text + RESET
 
 
 def cprint(text, color=None, on_color=None, attrs=None, **kwargs):
