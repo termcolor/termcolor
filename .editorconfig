@@ -13,9 +13,6 @@ indent_size = 4
 indent_style = space
 trim_trailing_whitespace = true
 
-[tabulated_rst.py]
-trim_trailing_whitespace = false
-
 # Two-space indentation
 [*.yml]
 indent_size = 2
