@@ -21,7 +21,7 @@ for i in range(10):
 cprint("Attention!", "red", attrs=["bold"], file=sys.stderr)
 ```
 
-## Text Properties
+## Text properties
 
 Text colors:
 
