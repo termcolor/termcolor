@@ -1,3 +1,5 @@
+import os
+
 import pytest
 
 from termcolor import ATTRIBUTES, COLORS, HIGHLIGHTS, colored, cprint
@@ -5,6 +7,14 @@ from termcolor import ATTRIBUTES, COLORS, HIGHLIGHTS, colored, cprint
 ALL_COLORS = list(COLORS) + [None]
 ALL_HIGHLIGHTS = list(HIGHLIGHTS) + [None]
 ALL_ATTRIBUTES = list(ATTRIBUTES) + [None]
+
+
+def setup_module():
+    # By default, make sure no env vars already set for tests
+    try:
+        del os.environ["ANSI_COLORS_DISABLED"]
+    except KeyError:  # pragma: no cover
+        pass
 
 
 def test_basic():
@@ -79,3 +89,26 @@ def test_on_color(capsys, on_color, expected):
 def test_attrs(capsys, attr, expected):
     assert colored("text", attrs=[attr]) == expected
     assert_cprint(capsys, expected, "text", attrs=[attr])
+
+
+@pytest.mark.parametrize(
+    "test_env_var",
+    [
+        "ANSI_COLORS_DISABLED",
+        "NO_COLOR",
+    ],
+)
+@pytest.mark.parametrize(
+    "test_value",
+    [
+        "true",
+        "false",
+        "1",
+        "0",
+        "",
+    ],
+)
+def test_env_var(monkeypatch, test_env_var, test_value):
+    """Assert nothing applied when this env var set, regardless of value."""
+    monkeypatch.setenv(test_env_var, test_value)
+    assert colored("text", color="red") == "text"
