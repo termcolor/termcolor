@@ -36,6 +36,12 @@ repos:
       - id: end-of-file-fixer
       - id: trailing-whitespace
 
+  - repo: https://github.com/asottile/setup-cfg-fmt
+    rev: v1.20.1
+    hooks:
+      - id: setup-cfg-fmt
+        args: [--max-py-version=3.11]
+
   - repo: https://github.com/tox-dev/pyproject-fmt
     rev: 0.3.3
     hooks:
