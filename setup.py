@@ -35,7 +35,7 @@ def local_scheme(version):
 
 setup(
     name="termcolor",
-    description="ANSII color formatting for output in terminal",
+    description="ANSI color formatting for output in terminal",
     long_description=long_description,
     long_description_content_type="text/markdown",
     author="Konstantin Lepa",
@@ -46,9 +46,9 @@ setup(
     keywords=[
         "termcolor",
         "terminal",
-        "ANSII color",
-        "ANSII colour",
-        "ANSII",
+        "ANSI color",
+        "ANSI colour",
+        "ANSI",
         "color",
         "colour",
         "formatting",

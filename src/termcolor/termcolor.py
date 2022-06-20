@@ -20,7 +20,7 @@
 #
 # Author: Konstantin Lepa <konstantin.lepa@gmail.com>
 
-"""ANSII color formatting for output in terminal."""
+"""ANSI color formatting for output in terminal."""
 
 import os
 
