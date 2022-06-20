@@ -21,10 +21,7 @@
 #
 # Author: Konstantin Lepa <konstantin.lepa@gmail.com>
 
-from setuptools import find_packages, setup
-
-with open("README.md") as f:
-    long_description = f.read()
+from setuptools import setup
 
 
 def local_scheme(version: str) -> str:
@@ -34,47 +31,5 @@ def local_scheme(version: str) -> str:
 
 
 setup(
-    name="termcolor",
-    description="ANSI color formatting for output in terminal",
-    long_description=long_description,
-    long_description_content_type="text/markdown",
-    author="Konstantin Lepa",
-    url="https://github.com/hugovk/termcolor",
-    project_urls={"Source": "https://github.com/hugovk/termcolor"},
-    license="MIT",
-    author_email="konstantin.lepa@gmail.com",
-    keywords=[
-        "termcolor",
-        "terminal",
-        "ANSI color",
-        "ANSI colour",
-        "ANSI",
-        "color",
-        "colour",
-        "formatting",
-    ],
-    packages=find_packages(where="src"),
-    package_dir={"": "src"},
     use_scm_version={"local_scheme": local_scheme},
-    setup_requires=["setuptools_scm"],
-    extras_require={"tests": ["pytest", "pytest-cov"]},
-    python_requires=">=3.7",
-    classifiers=[
-        "Development Status :: 5 - Production/Stable",
-        "Environment :: Console",
-        "Intended Audience :: Developers",
-        "License :: OSI Approved :: MIT License",
-        "Operating System :: OS Independent",
-        "Programming Language :: Python",
-        "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.7",
-        "Programming Language :: Python :: 3.8",
-        "Programming Language :: Python :: 3.9",
-        "Programming Language :: Python :: 3.10",
-        "Programming Language :: Python :: 3.11",
-        "Programming Language :: Python :: 3 :: Only",
-        "Programming Language :: Python :: Implementation :: CPython",
-        "Programming Language :: Python :: Implementation :: PyPy",
-        "Topic :: Terminals",
-    ],
 )
