@@ -1,15 +1,16 @@
 import os
+from typing import Any, List, Optional
 
 import pytest
 
 from termcolor import ATTRIBUTES, COLORS, HIGHLIGHTS, colored, cprint
 
-ALL_COLORS = list(COLORS) + [None]
-ALL_HIGHLIGHTS = list(HIGHLIGHTS) + [None]
-ALL_ATTRIBUTES = list(ATTRIBUTES) + [None]
+ALL_COLORS = [*COLORS, None]
+ALL_HIGHLIGHTS = [*HIGHLIGHTS, None]
+ALL_ATTRIBUTES = [*ATTRIBUTES, None]
 
 
-def setup_module():
+def setup_module() -> None:
     # By default, make sure no env vars already set for tests
     try:
         del os.environ["ANSI_COLORS_DISABLED"]
@@ -17,11 +18,11 @@ def setup_module():
         pass
 
 
-def test_basic():
+def test_basic() -> None:
     assert colored("text") == "text\x1b[0m"
 
 
-def test_sanity():
+def test_sanity() -> None:
     for color in ALL_COLORS:
         for highlight in ALL_HIGHLIGHTS:
             for attribute in ALL_ATTRIBUTES:
@@ -31,8 +32,14 @@ def test_sanity():
 
 
 def assert_cprint(
-    capsys, expected, text, color=None, on_color=None, attrs=None, **kwargs
-):
+    capsys: pytest.CaptureFixture[str],
+    expected: str,
+    text: str,
+    color: Optional[str] = None,
+    on_color: Optional[str] = None,
+    attrs: Optional[List[str]] = None,
+    **kwargs: Any,
+) -> None:
     cprint(text, color, on_color, attrs, **kwargs)
     captured = capsys.readouterr()
     print(captured.out)
@@ -52,7 +59,7 @@ def assert_cprint(
         ("white", "\x1b[37mtext\x1b[0m"),
     ],
 )
-def test_color(capsys, color, expected):
+def test_color(capsys: pytest.CaptureFixture[str], color: str, expected: str) -> None:
     assert colored("text", color=color) == expected
     assert_cprint(capsys, expected, "text", color=color)
 
@@ -70,7 +77,9 @@ def test_color(capsys, color, expected):
         ("on_white", "\x1b[47mtext\x1b[0m"),
     ],
 )
-def test_on_color(capsys, on_color, expected):
+def test_on_color(
+    capsys: pytest.CaptureFixture[str], on_color: str, expected: str
+) -> None:
     assert colored("text", on_color=on_color) == expected
     assert_cprint(capsys, expected, "text", on_color=on_color)
 
@@ -86,7 +95,7 @@ def test_on_color(capsys, on_color, expected):
         ("concealed", "\x1b[8mtext\x1b[0m"),
     ],
 )
-def test_attrs(capsys, attr, expected):
+def test_attrs(capsys: pytest.CaptureFixture[str], attr: str, expected: str) -> None:
     assert colored("text", attrs=[attr]) == expected
     assert_cprint(capsys, expected, "text", attrs=[attr])
 
@@ -108,7 +117,9 @@ def test_attrs(capsys, attr, expected):
         "",
     ],
 )
-def test_env_var(monkeypatch, test_env_var, test_value):
+def test_env_var(
+    monkeypatch: pytest.MonkeyPatch, test_env_var: str, test_value: str
+) -> None:
     """Assert nothing applied when this env var set, regardless of value."""
     monkeypatch.setenv(test_env_var, test_value)
     assert colored("text", color="red") == "text"

@@ -23,6 +23,7 @@
 """ANSI color formatting for output in terminal."""
 
 import os
+from typing import Any, Iterable, Optional
 
 __ALL__ = ["colored", "cprint"]
 
@@ -89,7 +90,12 @@ COLORS = dict(
 RESET = "\033[0m"
 
 
-def colored(text, color=None, on_color=None, attrs=None):
+def colored(
+    text: str,
+    color: Optional[str] = None,
+    on_color: Optional[str] = None,
+    attrs: Optional[Iterable[str]] = None,
+) -> str:
     """Colorize text.
 
     Available text colors:
@@ -122,7 +128,13 @@ def colored(text, color=None, on_color=None, attrs=None):
     return text + RESET
 
 
-def cprint(text, color=None, on_color=None, attrs=None, **kwargs):
+def cprint(
+    text: str,
+    color: Optional[str] = None,
+    on_color: Optional[str] = None,
+    attrs: Optional[Iterable[str]] = None,
+    **kwargs: Any,
+) -> None:
     """Print colorize text.
 
     It accepts arguments of print function.
