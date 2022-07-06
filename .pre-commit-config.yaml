@@ -6,7 +6,7 @@ repos:
         args: [--py37-plus]
 
   - repo: https://github.com/psf/black
-    rev: 22.3.0
+    rev: 22.6.0
     hooks:
       - id: black
         args: [--target-version=py37]
@@ -43,7 +43,7 @@ repos:
         args: [--max-py-version=3.11]
 
   - repo: https://github.com/tox-dev/pyproject-fmt
-    rev: 0.3.3
+    rev: 0.3.4
     hooks:
       - id: pyproject-fmt
 
