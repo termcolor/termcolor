@@ -22,8 +22,10 @@
 
 """ANSI color formatting for output in terminal."""
 
+from __future__ import annotations
+
 import os
-from typing import Any, Iterable, Optional
+from typing import Any, Iterable
 
 __ALL__ = ["colored", "cprint"]
 
@@ -92,9 +94,9 @@ RESET = "\033[0m"
 
 def colored(
     text: str,
-    color: Optional[str] = None,
-    on_color: Optional[str] = None,
-    attrs: Optional[Iterable[str]] = None,
+    color: str | None = None,
+    on_color: str | None = None,
+    attrs: Iterable[str] | None = None,
 ) -> str:
     """Colorize text.
 
@@ -130,9 +132,9 @@ def colored(
 
 def cprint(
     text: str,
-    color: Optional[str] = None,
-    on_color: Optional[str] = None,
-    attrs: Optional[Iterable[str]] = None,
+    color: str | None = None,
+    on_color: str | None = None,
+    attrs: Iterable[str] | None = None,
     **kwargs: Any,
 ) -> None:
     """Print colorize text.

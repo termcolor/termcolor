@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 import os
-from typing import Any, List, Optional
+from typing import Any
 
 import pytest
 
@@ -35,9 +37,9 @@ def assert_cprint(
     capsys: pytest.CaptureFixture[str],
     expected: str,
     text: str,
-    color: Optional[str] = None,
-    on_color: Optional[str] = None,
-    attrs: Optional[List[str]] = None,
+    color: str | None = None,
+    on_color: str | None = None,
+    attrs: list[str] | None = None,
     **kwargs: Any,
 ) -> None:
     cprint(text, color, on_color, attrs, **kwargs)

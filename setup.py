@@ -21,6 +21,8 @@
 #
 # Author: Konstantin Lepa <konstantin.lepa@gmail.com>
 
+from __future__ import annotations
+
 from setuptools import setup
 
 
