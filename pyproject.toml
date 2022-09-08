@@ -1,5 +1,71 @@
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = [
+  "setuptools>=61.2",
+  "setuptools-scm",
+]
+
+[project]
+name = "termcolor"
+description = "ANSI color formatting for output in terminal"
+readme = "README.md"
+keywords = [
+  "ANSI",
+  "ANSI color",
+  "ANSI colour",
+  "color",
+  "colour",
+  "formatting",
+  "termcolor",
+  "terminal",
+]
+license = {text = "MIT"}
+authors = [{name = "Konstantin Lepa", email = "konstantin.lepa@gmail.com"}]
+requires-python = ">=3.7"
+dynamic = [
+  "version",
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+    "Topic :: Terminals",
+]
+[project.optional-dependencies]
+tests = [
+  "pytest",
+  "pytest-cov",
+]
+
+[project.urls]
+Changelog = "https://github.com/termcolor/termcolor/releases"
+Homepage = "https://github.com/termcolor/termcolor"
+Source = "https://github.com/hugovk/termcolor"
+
+
 [tool.black]
 target_version = ["py37"]
 
 [tool.isort]
 profile = "black"
+
+[tool.setuptools]
+include-package-data = true
+package-dir = {"" = "src"}
+license-files = ["COPYING.txt"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+namespaces = false
