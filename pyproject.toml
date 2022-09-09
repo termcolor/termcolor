@@ -1,8 +1,8 @@
 [build-system]
-build-backend = "setuptools.build_meta"
+build-backend = "hatchling.build"
 requires = [
-  "setuptools>=61.2",
-  "setuptools-scm",
+  "hatch-vcs",
+  "hatchling",
 ]
 
 [project]
@@ -20,6 +20,7 @@ keywords = [
   "terminal",
 ]
 license = {text = "MIT"}
+maintainers = [{name = "Hugo van Kemenade"}]
 authors = [{name = "Konstantin Lepa", email = "konstantin.lepa@gmail.com"}]
 requires-python = ">=3.7"
 dynamic = [
@@ -58,14 +59,11 @@ Source = "https://github.com/hugovk/termcolor"
 [tool.black]
 target_version = ["py37"]
 
+[tool.hatch]
+version.source = "vcs"
+
+[tool.hatch.version.raw-options]
+local_scheme = "no-local-version"
+
 [tool.isort]
 profile = "black"
-
-[tool.setuptools]
-include-package-data = true
-package-dir = {"" = "src"}
-license-files = ["COPYING.txt"]
-
-[tool.setuptools.packages.find]
-where = ["src"]
-namespaces = false
