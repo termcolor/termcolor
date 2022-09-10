@@ -29,8 +29,6 @@ from typing import Any, Iterable
 
 __ALL__ = ["colored", "cprint"]
 
-VERSION = (1, 1, 0)
-
 ATTRIBUTES = dict(
     list(
         zip(
