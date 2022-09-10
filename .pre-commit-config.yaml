@@ -1,12 +1,12 @@
 repos:
   - repo: https://github.com/asottile/pyupgrade
-    rev: v2.34.0
+    rev: v2.37.3
     hooks:
       - id: pyupgrade
         args: [--py37-plus]
 
   - repo: https://github.com/psf/black
-    rev: 22.6.0
+    rev: 22.8.0
     hooks:
       - id: black
         args: [--target-version=py37]
@@ -15,9 +15,10 @@ repos:
     rev: 5.10.1
     hooks:
       - id: isort
+        args: [--add-import=from __future__ import annotations]
 
   - repo: https://github.com/PyCQA/flake8
-    rev: 4.0.1
+    rev: 5.0.4
     hooks:
       - id: flake8
         additional_dependencies: [flake8-2020, flake8-implicit-str-concat]
@@ -30,22 +31,29 @@ repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.3.0
     hooks:
+      - id: check-json
       - id: check-merge-conflict
       - id: check-toml
       - id: check-yaml
       - id: end-of-file-fixer
       - id: trailing-whitespace
 
-  - repo: https://github.com/asottile/setup-cfg-fmt
-    rev: v1.20.1
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v0.971
     hooks:
-      - id: setup-cfg-fmt
-        args: [--max-py-version=3.11]
+      - id: mypy
+        args: [--strict, --pretty, --show-error-codes]
+        additional_dependencies: [pytest]
 
   - repo: https://github.com/tox-dev/pyproject-fmt
-    rev: 0.3.4
+    rev: 0.3.5
     hooks:
       - id: pyproject-fmt
+
+  - repo: https://github.com/abravalheri/validate-pyproject
+    rev: v0.10.1
+    hooks:
+      - id: validate-pyproject
 
   - repo: https://github.com/tox-dev/tox-ini-fmt
     rev: 0.5.2
@@ -53,17 +61,10 @@ repos:
       - id: tox-ini-fmt
 
   - repo: https://github.com/pre-commit/mirrors-prettier
-    rev: v2.7.1
+    rev: v3.0.0-alpha.0
     hooks:
       - id: prettier
         args: [--prose-wrap=always, --print-width=88]
-
-  - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v0.961
-    hooks:
-      - id: mypy
-        args: [--strict, --pretty, --show-error-codes]
-        additional_dependencies: [pytest, types-setuptools]
 
 ci:
   autoupdate_schedule: quarterly
