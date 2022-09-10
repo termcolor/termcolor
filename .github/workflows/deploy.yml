@@ -33,7 +33,6 @@ jobs:
 
       - name: Build package
         run: |
-          python setup.py --version
           python -m build
           twine check --strict dist/*
 
