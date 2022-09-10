@@ -1,3 +1,9 @@
+## 2.0.0 and newer
+
+See GitHub Releases:
+
+- https://github.com/termcolor/termcolor/releases
+
 ## 1.1.0 (13.01.2011)
 
 - Added cprint function.
