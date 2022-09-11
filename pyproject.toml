@@ -53,7 +53,7 @@ tests = [
 [project.urls]
 Changelog = "https://github.com/termcolor/termcolor/releases"
 Homepage = "https://github.com/termcolor/termcolor"
-Source = "https://github.com/hugovk/termcolor"
+Source = "https://github.com/termcolor/termcolor"
 
 
 [tool.black]
