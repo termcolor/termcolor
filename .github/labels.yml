@@ -52,9 +52,9 @@
 - color: 0366d6
   description: "For dependencies"
   name: dependencies
-- color: 0052cc
-  description: "Documentation"
-  name: docs
+- color: 0075ca
+  description: "Improvements or additions to documentation"
+  name: documentation
 - color: f4660e
   description: ""
   name: Hacktoberfest
