@@ -156,7 +156,7 @@ def cprint(
 
 
 if __name__ == "__main__":
-    print("Current terminal type: %s" % os.getenv("TERM"))
+    print(f"Current terminal type: {os.getenv('TERM')}")
     print("Test basic colors:")
     cprint("Grey color", "grey")
     cprint("Red color", "red")
