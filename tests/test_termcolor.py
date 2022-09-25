@@ -5,7 +5,7 @@ from typing import Any
 
 import pytest
 
-from termcolor import ATTRIBUTES, COLORS, HIGHLIGHTS, colored, cprint
+from termcolor import ATTRIBUTES, COLORS, HIGHLIGHTS, colored, cprint, termcolor
 
 ALL_COLORS = [*COLORS, None]
 ALL_HIGHLIGHTS = [*HIGHLIGHTS, None]
@@ -119,9 +119,15 @@ def test_attrs(capsys: pytest.CaptureFixture[str], attr: str, expected: str) -> 
         "",
     ],
 )
-def test_env_var(
+def test_environment_variables(
     monkeypatch: pytest.MonkeyPatch, test_env_var: str, test_value: str
 ) -> None:
     """Assert nothing applied when this env var set, regardless of value."""
     monkeypatch.setenv(test_env_var, test_value)
     assert colored("text", color="red") == "text"
+
+
+def test_all_deprecation() -> None:
+    """Assert that __ALL__ is deprecated (use __all__ instead)"""
+    with pytest.deprecated_call():
+        assert termcolor.__ALL__

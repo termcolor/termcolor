@@ -25,9 +25,21 @@
 from __future__ import annotations
 
 import os
+import warnings
 from typing import Any, Iterable
 
-__ALL__ = ["colored", "cprint"]
+
+def __getattr__(name: str) -> list[str]:
+    if name == "__ALL__":
+        warnings.warn(
+            "__ALL__ is deprecated and will be removed in termcolor 3. "
+            "Use __all__ instead.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+        return ["colored", "cprint"]
+    raise AttributeError(f"module '{__name__}' has no attribute '{name}'")
+
 
 ATTRIBUTES = dict(
     list(
@@ -144,7 +156,7 @@ def cprint(
 
 
 if __name__ == "__main__":
-    print("Current terminal type: %s" % os.getenv("TERM"))
+    print(f"Current terminal type: {os.getenv('TERM')}")
     print("Test basic colors:")
     cprint("Grey color", "grey")
     cprint("Red color", "red")
