@@ -25,6 +25,7 @@
 from __future__ import annotations
 
 import os
+import sys
 import warnings
 from typing import Any, Iterable
 
@@ -123,7 +124,11 @@ def colored(
         colored('Hello, World!', 'red', 'on_grey', ['bold', 'blink'])
         colored('Hello, World!', 'green')
     """
-    if "NO_COLOR" in os.environ or "ANSI_COLORS_DISABLED" in os.environ:
+    if (
+        "NO_COLOR" in os.environ
+        or "ANSI_COLORS_DISABLED" in os.environ
+        or not sys.stdout.isatty()
+    ):
         return text
 
     fmt_str = "\033[%dm%s"
