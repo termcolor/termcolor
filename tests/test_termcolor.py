@@ -14,10 +14,11 @@ ALL_ATTRIBUTES = [*ATTRIBUTES, None]
 
 def setup_module() -> None:
     # By default, make sure no env vars already set for tests
-    try:
-        del os.environ["ANSI_COLORS_DISABLED"]
-    except KeyError:  # pragma: no cover
-        pass
+    for var in ("ANSI_COLORS_DISABLED", "NO_COLOR", "FORCE_COLOR"):
+        try:
+            del os.environ[var]
+        except KeyError:  # pragma: no cover
+            pass
 
 
 def test_basic(monkeypatch: pytest.MonkeyPatch) -> None:
