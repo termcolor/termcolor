@@ -157,6 +157,46 @@ def test_environment_variables_disable_color(
 
 
 @pytest.mark.parametrize(
+    "test_value",
+    [
+        "true",
+        "false",
+        "1",
+        "0",
+        "",
+    ],
+)
+def test_environment_variables_force_color(
+    monkeypatch: pytest.MonkeyPatch, test_value: str
+) -> None:
+    """Assert color applied when this env var set, regardless of value"""
+    monkeypatch.setenv("FORCE_COLOR", test_value)
+    assert colored("text", color="cyan") == "\x1b[36mtext\x1b[0m"
+
+
+@pytest.mark.parametrize(
+    "test_env_vars, expected",
+    [
+        (["ANSI_COLORS_DISABLED=1"], False),
+        (["NO_COLOR=1"], False),
+        (["FORCE_COLOR=1"], True),
+        (["ANSI_COLORS_DISABLED=1", "NO_COLOR=1", "FORCE_COLOR=1"], False),
+        (["NO_COLOR=1", "FORCE_COLOR=1"], False),
+    ],
+)
+def test_environment_variables(
+    monkeypatch: pytest.MonkeyPatch, test_env_vars: str, expected: bool
+) -> None:
+    """Assert combinations do the right thing"""
+    for env_var in test_env_vars:
+        name, value = env_var.split("=")
+        print(name, value)
+        monkeypatch.setenv(name, value)
+
+    assert termcolor._can_do_colour() == expected
+
+
+@pytest.mark.parametrize(
     "test_isatty, expected",
     [
         (True, "\x1b[36mtext\x1b[0m"),
