@@ -53,7 +53,8 @@ ATTRIBUTES = {
 
 
 HIGHLIGHTS = {
-    "on_grey": 40,
+    "on_black": 40,
+    "on_grey": 40,  # Actually black but kept for backwards compatibility
     "on_red": 41,
     "on_green": 42,
     "on_yellow": 43,
@@ -64,7 +65,8 @@ HIGHLIGHTS = {
 }
 
 COLORS = {
-    "grey": 30,
+    "black": 30,
+    "grey": 30,  # Actually black but kept for backwards compatibility
     "red": 31,
     "green": 32,
     "yellow": 33,
@@ -102,16 +104,16 @@ def colored(
     """Colorize text.
 
     Available text colors:
-        grey, red, green, yellow, blue, magenta, cyan, white.
+        black, red, green, yellow, blue, magenta, cyan, white.
 
     Available text highlights:
-        on_grey, on_red, on_green, on_yellow, on_blue, on_magenta, on_cyan, on_white.
+        on_black, on_red, on_green, on_yellow, on_blue, on_magenta, on_cyan, on_white.
 
     Available attributes:
         bold, dark, underline, blink, reverse, concealed.
 
     Example:
-        colored('Hello, World!', 'red', 'on_grey', ['bold', 'blink'])
+        colored('Hello, World!', 'red', 'on_black', ['bold', 'blink'])
         colored('Hello, World!', 'green')
     """
     if not _can_do_colour():
