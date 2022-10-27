@@ -14,13 +14,18 @@ ALL_ATTRIBUTES = [*ATTRIBUTES, None]
 
 def setup_module() -> None:
     # By default, make sure no env vars already set for tests
-    try:
-        del os.environ["ANSI_COLORS_DISABLED"]
-    except KeyError:  # pragma: no cover
-        pass
+    for var in ("ANSI_COLORS_DISABLED", "NO_COLOR", "FORCE_COLOR"):
+        try:
+            del os.environ[var]
+        except KeyError:  # pragma: no cover
+            pass
 
 
-def test_basic() -> None:
+def test_basic(monkeypatch: pytest.MonkeyPatch) -> None:
+    # Arrange
+    monkeypatch.setattr("sys.stdout.isatty", lambda: True)
+
+    # Act / Assert
     assert colored("text") == "text\x1b[0m"
 
 
@@ -61,7 +66,16 @@ def assert_cprint(
         ("white", "\x1b[37mtext\x1b[0m"),
     ],
 )
-def test_color(capsys: pytest.CaptureFixture[str], color: str, expected: str) -> None:
+def test_color(
+    capsys: pytest.CaptureFixture[str],
+    monkeypatch: pytest.MonkeyPatch,
+    color: str,
+    expected: str,
+) -> None:
+    # Arrange
+    monkeypatch.setattr("sys.stdout.isatty", lambda: True)
+
+    # Act / Assert
     assert colored("text", color=color) == expected
     assert_cprint(capsys, expected, "text", color=color)
 
@@ -80,8 +94,15 @@ def test_color(capsys: pytest.CaptureFixture[str], color: str, expected: str) ->
     ],
 )
 def test_on_color(
-    capsys: pytest.CaptureFixture[str], on_color: str, expected: str
+    capsys: pytest.CaptureFixture[str],
+    monkeypatch: pytest.MonkeyPatch,
+    on_color: str,
+    expected: str,
 ) -> None:
+    # Arrange
+    monkeypatch.setattr("sys.stdout.isatty", lambda: True)
+
+    # Act / Assert
     assert colored("text", on_color=on_color) == expected
     assert_cprint(capsys, expected, "text", on_color=on_color)
 
@@ -97,7 +118,16 @@ def test_on_color(
         ("concealed", "\x1b[8mtext\x1b[0m"),
     ],
 )
-def test_attrs(capsys: pytest.CaptureFixture[str], attr: str, expected: str) -> None:
+def test_attrs(
+    capsys: pytest.CaptureFixture[str],
+    monkeypatch: pytest.MonkeyPatch,
+    attr: str,
+    expected: str,
+) -> None:
+    # Arrange
+    monkeypatch.setattr("sys.stdout.isatty", lambda: True)
+
+    # Act / Assert
     assert colored("text", attrs=[attr]) == expected
     assert_cprint(capsys, expected, "text", attrs=[attr])
 
@@ -119,12 +149,68 @@ def test_attrs(capsys: pytest.CaptureFixture[str], attr: str, expected: str) -> 
         "",
     ],
 )
-def test_environment_variables(
+def test_environment_variables_disable_color(
     monkeypatch: pytest.MonkeyPatch, test_env_var: str, test_value: str
 ) -> None:
-    """Assert nothing applied when this env var set, regardless of value."""
+    """Assert nothing applied when this env var set, regardless of value"""
     monkeypatch.setenv(test_env_var, test_value)
-    assert colored("text", color="red") == "text"
+    assert colored("text", color="cyan") == "text"
+
+
+@pytest.mark.parametrize(
+    "test_value",
+    [
+        "true",
+        "false",
+        "1",
+        "0",
+        "",
+    ],
+)
+def test_environment_variables_force_color(
+    monkeypatch: pytest.MonkeyPatch, test_value: str
+) -> None:
+    """Assert color applied when this env var set, regardless of value"""
+    monkeypatch.setenv("FORCE_COLOR", test_value)
+    assert colored("text", color="cyan") == "\x1b[36mtext\x1b[0m"
+
+
+@pytest.mark.parametrize(
+    "test_env_vars, expected",
+    [
+        (["ANSI_COLORS_DISABLED=1"], False),
+        (["NO_COLOR=1"], False),
+        (["FORCE_COLOR=1"], True),
+        (["ANSI_COLORS_DISABLED=1", "NO_COLOR=1", "FORCE_COLOR=1"], False),
+        (["NO_COLOR=1", "FORCE_COLOR=1"], False),
+    ],
+)
+def test_environment_variables(
+    monkeypatch: pytest.MonkeyPatch, test_env_vars: str, expected: bool
+) -> None:
+    """Assert combinations do the right thing"""
+    for env_var in test_env_vars:
+        name, value = env_var.split("=")
+        print(name, value)
+        monkeypatch.setenv(name, value)
+
+    assert termcolor._can_do_colour() == expected
+
+
+@pytest.mark.parametrize(
+    "test_isatty, expected",
+    [
+        (True, "\x1b[36mtext\x1b[0m"),
+        (False, "text"),
+    ],
+)
+def test_tty(monkeypatch: pytest.MonkeyPatch, test_isatty: bool, expected: str) -> None:
+    """Assert color when attached to tty, no color when not attached"""
+    # Arrange
+    monkeypatch.setattr("sys.stdout.isatty", lambda: test_isatty)
+
+    # Act / Assert
+    assert colored("text", color="cyan") == expected
 
 
 def test_all_deprecation() -> None:

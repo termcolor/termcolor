@@ -25,6 +25,7 @@
 from __future__ import annotations
 
 import os
+import sys
 import warnings
 from typing import Any, Iterable
 
@@ -102,6 +103,21 @@ COLORS = dict(
 RESET = "\033[0m"
 
 
+def _can_do_colour() -> bool:
+    """Check env vars and for tty/dumb terminal"""
+    if "ANSI_COLORS_DISABLED" in os.environ:
+        return False
+    if "NO_COLOR" in os.environ:
+        return False
+    if "FORCE_COLOR" in os.environ:
+        return True
+    return (
+        hasattr(sys.stdout, "isatty")
+        and sys.stdout.isatty()
+        and os.environ.get("TERM") != "dumb"
+    )
+
+
 def colored(
     text: str,
     color: str | None = None,
@@ -123,7 +139,7 @@ def colored(
         colored('Hello, World!', 'red', 'on_grey', ['bold', 'blink'])
         colored('Hello, World!', 'green')
     """
-    if "NO_COLOR" in os.environ or "ANSI_COLORS_DISABLED" in os.environ:
+    if not _can_do_colour():
         return text
 
     fmt_str = "\033[%dm%s"
