@@ -9,6 +9,30 @@
 [![Code style: Black](https://img.shields.io/badge/code%20style-Black-000000.svg)](https://github.com/psf/black)
 [![Tidelift](https://tidelift.com/badges/package/pypi/termcolor)](https://tidelift.com/subscription/pkg/pypi-termcolor?utm_source=pypi-termcolor&utm_medium=referral&utm_campaign=readme)
 
+## Installation
+
+### From PyPI
+
+```bash
+python3 -m pip install --upgrade termcolor
+```
+
+### From source
+
+```bash
+git clone https://github.com/termcolor/termcolor
+cd termcolor
+python3 -m pip install .
+```
+
+### Demo
+
+To see demo output, run:
+
+```bash
+python3 -m termcolor
+```
+
 ## Example
 
 ```python
