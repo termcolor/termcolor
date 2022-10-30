@@ -1,5 +1,9 @@
 # .coveragerc to control coverage.py
 
+[run]
+omit =
+    */termcolor/__main__.py
+
 [report]
 # Regexes for lines to exclude from consideration
 exclude_lines =
