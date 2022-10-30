@@ -56,36 +56,16 @@ cprint("Attention!", "red", attrs=["bold"], file=sys.stderr)
 
 ## Text properties
 
-Text colors:
-
-- grey
-- red
-- green
-- yellow
-- blue
-- magenta
-- cyan
-- white
-
-Text highlights:
-
-- on_grey
-- on_red
-- on_green
-- on_yellow
-- on_blue
-- on_magenta
-- on_cyan
-- on_white
-
-Attributes:
-
-- bold
-- dark
-- underline
-- blink
-- reverse
-- concealed
+| Text colors | Text highlights | Attributes  |
+| ----------- | --------------- | ----------- |
+| `grey`      | `on_grey`       | `bold`      |
+| `red`       | `on_red`        | `dark`      |
+| `green`     | `on_green`      | `underline` |
+| `yellow`    | `on_yellow`     | `blink`     |
+| `blue`      | `on_blue`       | `reverse`   |
+| `magenta`   | `on_magenta`    | `concealed` |
+| `cyan`      | `on_cyan`       |             |
+| `white`     | `on_white`      |             |
 
 ## Terminal properties
 
