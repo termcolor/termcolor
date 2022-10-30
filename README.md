@@ -9,6 +9,30 @@
 [![Code style: Black](https://img.shields.io/badge/code%20style-Black-000000.svg)](https://github.com/psf/black)
 [![Tidelift](https://tidelift.com/badges/package/pypi/termcolor)](https://tidelift.com/subscription/pkg/pypi-termcolor?utm_source=pypi-termcolor&utm_medium=referral&utm_campaign=readme)
 
+## Installation
+
+### From PyPI
+
+```bash
+python3 -m pip install --upgrade termcolor
+```
+
+### From source
+
+```bash
+git clone https://github.com/termcolor/termcolor
+cd termcolor
+python3 -m pip install .
+```
+
+### Demo
+
+To see demo output, run:
+
+```bash
+python3 -m termcolor
+```
+
 ## Example
 
 ```python
@@ -32,36 +56,16 @@ cprint("Attention!", "red", attrs=["bold"], file=sys.stderr)
 
 ## Text properties
 
-Text colors:
-
-- grey
-- red
-- green
-- yellow
-- blue
-- magenta
-- cyan
-- white
-
-Text highlights:
-
-- on_grey
-- on_red
-- on_green
-- on_yellow
-- on_blue
-- on_magenta
-- on_cyan
-- on_white
-
-Attributes:
-
-- bold
-- dark
-- underline
-- blink
-- reverse
-- concealed
+| Text colors | Text highlights | Attributes  |
+| ----------- | --------------- | ----------- |
+| `grey`      | `on_grey`       | `bold`      |
+| `red`       | `on_red`        | `dark`      |
+| `green`     | `on_green`      | `underline` |
+| `yellow`    | `on_yellow`     | `blink`     |
+| `blue`      | `on_blue`       | `reverse`   |
+| `magenta`   | `on_magenta`    | `concealed` |
+| `cyan`      | `on_cyan`       |             |
+| `white`     | `on_white`      |             |
 
 ## Terminal properties
 
