@@ -56,6 +56,7 @@ def assert_cprint(
 @pytest.mark.parametrize(
     "color, expected",
     [
+        ("black", "\x1b[30mtext\x1b[0m"),
         ("grey", "\x1b[30mtext\x1b[0m"),
         ("red", "\x1b[31mtext\x1b[0m"),
         ("green", "\x1b[32mtext\x1b[0m"),
@@ -63,7 +64,10 @@ def assert_cprint(
         ("blue", "\x1b[34mtext\x1b[0m"),
         ("magenta", "\x1b[35mtext\x1b[0m"),
         ("cyan", "\x1b[36mtext\x1b[0m"),
-        ("white", "\x1b[37mtext\x1b[0m"),
+        ("white", "\x1b[97mtext\x1b[0m"),
+        ("light_grey", "\x1b[37mtext\x1b[0m"),
+        ("dark_grey", "\x1b[90mtext\x1b[0m"),
+        ("light_blue", "\x1b[94mtext\x1b[0m"),
     ],
 )
 def test_color(
@@ -83,6 +87,7 @@ def test_color(
 @pytest.mark.parametrize(
     "on_color, expected",
     [
+        ("on_black", "\x1b[40mtext\x1b[0m"),
         ("on_grey", "\x1b[40mtext\x1b[0m"),
         ("on_red", "\x1b[41mtext\x1b[0m"),
         ("on_green", "\x1b[42mtext\x1b[0m"),
@@ -90,7 +95,10 @@ def test_color(
         ("on_blue", "\x1b[44mtext\x1b[0m"),
         ("on_magenta", "\x1b[45mtext\x1b[0m"),
         ("on_cyan", "\x1b[46mtext\x1b[0m"),
-        ("on_white", "\x1b[47mtext\x1b[0m"),
+        ("on_white", "\x1b[107mtext\x1b[0m"),
+        ("on_light_grey", "\x1b[47mtext\x1b[0m"),
+        ("on_dark_grey", "\x1b[100mtext\x1b[0m"),
+        ("on_light_blue", "\x1b[104mtext\x1b[0m"),
     ],
 )
 def test_on_color(
