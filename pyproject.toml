@@ -61,8 +61,5 @@ version.source = "vcs"
 [tool.hatch.version.raw-options]
 local_scheme = "no-local-version"
 
-[tool.black]
-target_version = ["py37"]
-
 [tool.isort]
 profile = "black"
