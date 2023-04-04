@@ -23,9 +23,6 @@ license = {text = "MIT"}
 maintainers = [{name = "Hugo van Kemenade"}]
 authors = [{name = "Konstantin Lepa", email = "konstantin.lepa@gmail.com"}]
 requires-python = ">=3.7"
-dynamic = [
-  "version",
-]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Environment :: Console",
@@ -45,20 +42,18 @@ classifiers = [
     "Programming Language :: Python :: Implementation :: PyPy",
     "Topic :: Terminals",
 ]
+dynamic = [
+  "version",
+]
 [project.optional-dependencies]
 tests = [
   "pytest",
   "pytest-cov",
 ]
-
 [project.urls]
 Changelog = "https://github.com/termcolor/termcolor/releases"
 Homepage = "https://github.com/termcolor/termcolor"
 Source = "https://github.com/termcolor/termcolor"
-
-
-[tool.black]
-target_version = ["py37"]
 
 [tool.hatch]
 version.source = "vcs"

@@ -39,7 +39,8 @@ def __getattr__(name: str) -> list[str]:
             stacklevel=2,
         )
         return ["colored", "cprint"]
-    raise AttributeError(f"module '{__name__}' has no attribute '{name}'")
+    msg = f"module '{__name__}' has no attribute '{name}'"
+    raise AttributeError(msg)
 
 
 ATTRIBUTES = {
