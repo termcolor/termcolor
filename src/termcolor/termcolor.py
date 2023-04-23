@@ -97,8 +97,22 @@ COLORS = {
 RESET = "\033[0m"
 
 
-def _can_do_colour() -> bool:
+def _can_do_colour(
+    *, no_color: bool | None = None, force_color: bool | None = None
+) -> bool:
     """Check env vars and for tty/dumb terminal"""
+    # First check overrides:
+    # "User-level configuration files and per-instance command-line arguments should
+    # override $NO_COLOR. A user should be able to export $NO_COLOR in their shell
+    # configuration file as a default, but configure a specific program in its
+    # configuration file to specifically enable color."
+    # https://no-color.org
+    if no_color is not None and no_color:
+        return False
+    if force_color is not None and force_color:
+        return True
+
+    # Then check env vars:
     if "ANSI_COLORS_DISABLED" in os.environ:
         return False
     if "NO_COLOR" in os.environ:
@@ -117,6 +131,9 @@ def colored(
     color: str | None = None,
     on_color: str | None = None,
     attrs: Iterable[str] | None = None,
+    *,
+    no_color: bool | None = None,
+    force_color: bool | None = None,
 ) -> str:
     """Colorize text.
 
@@ -137,7 +154,7 @@ def colored(
         colored('Hello, World!', 'red', 'on_black', ['bold', 'blink'])
         colored('Hello, World!', 'green')
     """
-    if not _can_do_colour():
+    if not _can_do_colour(no_color=no_color, force_color=force_color):
         return text
 
     fmt_str = "\033[%dm%s"
@@ -159,11 +176,26 @@ def cprint(
     color: str | None = None,
     on_color: str | None = None,
     attrs: Iterable[str] | None = None,
+    *,
+    no_color: bool | None = None,
+    force_color: bool | None = None,
     **kwargs: Any,
 ) -> None:
-    """Print colorize text.
+    """Print colorized text.
 
     It accepts arguments of print function.
     """
 
-    print((colored(text, color, on_color, attrs)), **kwargs)
+    print(
+        (
+            colored(
+                text,
+                color,
+                on_color,
+                attrs,
+                no_color=no_color,
+                force_color=force_color,
+            )
+        ),
+        **kwargs,
+    )

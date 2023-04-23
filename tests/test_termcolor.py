@@ -36,6 +36,10 @@ def test_sanity() -> None:
                 attrs = None if attribute is None else [attribute]
                 colored("text", color, highlight, attrs)
                 cprint("text", color, highlight, attrs)
+                colored("text", color, highlight, attrs, no_color=True)
+                cprint("text", color, highlight, attrs, no_color=True)
+                colored("text", color, highlight, attrs, force_color=True)
+                cprint("text", color, highlight, attrs, force_color=True)
 
 
 def assert_cprint(
@@ -184,25 +188,46 @@ def test_environment_variables_force_color(
 
 
 @pytest.mark.parametrize(
-    "test_env_vars, expected",
+    "test_no_color, test_force_color, test_env_vars, expected",
     [
-        (["ANSI_COLORS_DISABLED=1"], False),
-        (["NO_COLOR=1"], False),
-        (["FORCE_COLOR=1"], True),
-        (["ANSI_COLORS_DISABLED=1", "NO_COLOR=1", "FORCE_COLOR=1"], False),
-        (["NO_COLOR=1", "FORCE_COLOR=1"], False),
+        # Set only env vars
+        (None, None, ["ANSI_COLORS_DISABLED=1"], False),
+        (None, None, ["NO_COLOR=1"], False),
+        (None, None, ["FORCE_COLOR=1"], True),
+        (None, None, ["ANSI_COLORS_DISABLED=1", "NO_COLOR=1", "FORCE_COLOR=1"], False),
+        (None, None, ["NO_COLOR=1", "FORCE_COLOR=1"], False),
+        # Set only parameter overrides
+        (True, None, [None], False),
+        (None, True, [None], True),
+        (True, True, [None], False),
+        # Set both parameter overrides and env vars
+        (True, None, ["NO_COLOR=1"], False),
+        (None, True, ["NO_COLOR=1"], True),
+        (True, True, ["NO_COLOR=1"], False),
+        (True, None, ["FORCE_COLOR=1"], False),
+        (None, True, ["FORCE_COLOR=1"], True),
+        (True, True, ["FORCE_COLOR=1"], False),
     ],
 )
 def test_environment_variables(
-    monkeypatch: pytest.MonkeyPatch, test_env_vars: str, expected: bool
+    monkeypatch: pytest.MonkeyPatch,
+    test_no_color: bool,
+    test_force_color: bool,
+    test_env_vars: str,
+    expected: bool,
 ) -> None:
     """Assert combinations do the right thing"""
     for env_var in test_env_vars:
+        if not env_var:
+            continue
         name, value = env_var.split("=")
         print(name, value)
         monkeypatch.setenv(name, value)
 
-    assert termcolor._can_do_colour() == expected
+    assert (
+        termcolor._can_do_colour(no_color=test_no_color, force_color=test_force_color)
+        == expected
+    )
 
 
 @pytest.mark.parametrize(
