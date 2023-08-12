@@ -44,33 +44,33 @@ def __getattr__(name: str) -> list[str]:
 
 
 ATTRIBUTES = {
-    "bold": 1,
-    "dark": 2,
-    "underline": 4,
-    "blink": 5,
-    "reverse": 7,
-    "concealed": 8,
+    "bold": "1",
+    "dark": "2",
+    "underline": "4",
+    "blink": "5",
+    "reverse": "7",
+    "concealed": "8",
 }
 
 
 HIGHLIGHTS = {
-    "on_black": 40,
-    "on_grey": 40,  # Actually black but kept for backwards compatibility
-    "on_red": 41,
-    "on_green": 42,
-    "on_yellow": 43,
-    "on_blue": 44,
-    "on_magenta": 45,
-    "on_cyan": 46,
-    "on_light_grey": 47,
-    "on_dark_grey": 100,
-    "on_light_red": 101,
-    "on_light_green": 102,
-    "on_light_yellow": 103,
-    "on_light_blue": 104,
-    "on_light_magenta": 105,
-    "on_light_cyan": 106,
-    "on_white": 107,
+    "on_black": "40",
+    "on_grey": "40",  # Actually black but kept for backwards compatibility
+    "on_red": "41",
+    "on_green": "42",
+    "on_yellow": "43",
+    "on_blue": "44",
+    "on_magenta": "45",
+    "on_cyan": "46",
+    "on_light_grey": "47",
+    "on_dark_grey": "100",
+    "on_light_red": "101",
+    "on_light_green": "102",
+    "on_light_yellow": "103",
+    "on_light_blue": "104",
+    "on_light_magenta": "105",
+    "on_light_cyan": "106",
+    "on_white": "107",
 }
 
 COLORS = {
