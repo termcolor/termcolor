@@ -126,10 +126,7 @@ def _can_do_colour(
     )
 
 
-def colorAdd(
-    color: str,
-    RGB: tuple | None = None
-) -> None:
+def colorAdd(color: str, RGB: tuple | None = None) -> None:
     """add colors to Available text colors
 
     Args:
@@ -138,6 +135,7 @@ def colorAdd(
     """
     if not RGB == None:
         COLORS[color] = f"38;2;{RGB[0]};{RGB[1]};{RGB[2]}"
+
 
 def colored(
     text: str,
