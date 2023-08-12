@@ -74,23 +74,23 @@ HIGHLIGHTS = {
 }
 
 COLORS = {
-    "black": 30,
-    "grey": 30,  # Actually black but kept for backwards compatibility
-    "red": 31,
-    "green": 32,
-    "yellow": 33,
-    "blue": 34,
-    "magenta": 35,
-    "cyan": 36,
-    "light_grey": 37,
-    "dark_grey": 90,
-    "light_red": 91,
-    "light_green": 92,
-    "light_yellow": 93,
-    "light_blue": 94,
-    "light_magenta": 95,
-    "light_cyan": 96,
-    "white": 97,
+    "black": "30",
+    "grey": "30",  # Actually black but kept for backwards compatibility
+    "red": "31",
+    "green": "32",
+    "yellow": "33",
+    "blue": "34",
+    "magenta": "35",
+    "cyan": "36",
+    "light_grey": "37",
+    "dark_grey": "90",
+    "light_red": "91",
+    "light_green": "92",
+    "light_yellow": "93",
+    "light_blue": "94",
+    "light_magenta": "95",
+    "light_cyan": "96",
+    "white": "97",
 }
 
 
@@ -126,6 +126,19 @@ def _can_do_colour(
     )
 
 
+def colorAdd(
+    color: str,
+    RGB: tuple | None = None
+) -> None:
+    """add colors to Available text colors
+
+    Args:
+        color (str): collor index name, used to call this collor
+        RGB (R, G, B): the RGB value of the collor you want to add. Defaults to None.
+    """
+    if not RGB == None:
+        COLORS[color] = f"38;2;{RGB[0]};{RGB[1]};{RGB[2]}"
+
 def colored(
     text: str,
     color: str | None = None,
@@ -140,7 +153,7 @@ def colored(
     Available text colors:
         black, red, green, yellow, blue, magenta, cyan, white,
         light_grey, dark_grey, light_red, light_green, light_yellow, light_blue,
-        light_magenta, light_cyan.
+        light_magenta, light_cyan, and all collors added by addCollor().
 
     Available text highlights:
         on_black, on_red, on_green, on_yellow, on_blue, on_magenta, on_cyan, on_white,
@@ -157,7 +170,7 @@ def colored(
     if not _can_do_colour(no_color=no_color, force_color=force_color):
         return text
 
-    fmt_str = "\033[%dm%s"
+    fmt_str = "\033[%sm%s"
     if color is not None:
         text = fmt_str % (COLORS[color], text)
 
