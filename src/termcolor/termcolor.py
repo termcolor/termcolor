@@ -156,19 +156,22 @@ def colored(
         colored('Hello, World!', 'green')
     """
     result = str(text)
-    if _can_do_colour(no_color=no_color, force_color=force_color):
-        fmt_str = "\033[%dm%s"
-        if color is not None:
-            result = fmt_str % (COLORS[color], result)
+    if not _can_do_colour(no_color=no_color, force_color=force_color):
+        return result
 
-        if on_color is not None:
-            result = fmt_str % (HIGHLIGHTS[on_color], result)
+    fmt_str = "\033[%dm%s"
+    if color is not None:
+        result = fmt_str % (COLORS[color], result)
 
-        if attrs is not None:
-            for attr in attrs:
-                result = fmt_str % (ATTRIBUTES[attr], result)
+    if on_color is not None:
+        result = fmt_str % (HIGHLIGHTS[on_color], result)
 
-        result += RESET
+    if attrs is not None:
+        for attr in attrs:
+            result = fmt_str % (ATTRIBUTES[attr], result)
+
+    result += RESET
+
     return result
 
 
