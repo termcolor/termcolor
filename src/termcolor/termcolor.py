@@ -128,7 +128,7 @@ def _can_do_colour(
 
 
 def colored(
-    text: str,
+    text: object,
     color: Color | None = None,
     on_color: Highlight | None = None,
     attrs: Iterable[Attribute] | None = None,
@@ -155,25 +155,25 @@ def colored(
         colored('Hello, World!', 'red', 'on_black', ['bold', 'blink'])
         colored('Hello, World!', 'green')
     """
-    if not _can_do_colour(no_color=no_color, force_color=force_color):
-        return text
+    result = str(text)
+    if _can_do_colour(no_color=no_color, force_color=force_color):
+        fmt_str = "\033[%dm%s"
+        if color is not None:
+            result = fmt_str % (COLORS[color], result)
 
-    fmt_str = "\033[%dm%s"
-    if color is not None:
-        text = fmt_str % (COLORS[color], text)
+        if on_color is not None:
+            result = fmt_str % (HIGHLIGHTS[on_color], result)
 
-    if on_color is not None:
-        text = fmt_str % (HIGHLIGHTS[on_color], text)
+        if attrs is not None:
+            for attr in attrs:
+                result = fmt_str % (ATTRIBUTES[attr], result)
 
-    if attrs is not None:
-        for attr in attrs:
-            text = fmt_str % (ATTRIBUTES[attr], text)
-
-    return text + RESET
+        result += RESET
+    return result
 
 
 def cprint(
-    text: str,
+    text: object,
     color: Color | None = None,
     on_color: Highlight | None = None,
     attrs: Iterable[Attribute] | None = None,
