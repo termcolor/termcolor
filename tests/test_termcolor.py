@@ -1,11 +1,12 @@
 from __future__ import annotations
 
 import os
-from typing import Any
+from typing import Any, Iterable
 
 import pytest
 
 from termcolor import ATTRIBUTES, COLORS, HIGHLIGHTS, colored, cprint, termcolor
+from termcolor._types import Attribute, Color, Highlight
 
 ALL_COLORS = [*COLORS, None]
 ALL_HIGHLIGHTS = [*HIGHLIGHTS, None]
@@ -46,9 +47,9 @@ def assert_cprint(
     capsys: pytest.CaptureFixture[str],
     expected: str,
     text: str,
-    color: str | None = None,
-    on_color: str | None = None,
-    attrs: list[str] | None = None,
+    color: Color | None = None,
+    on_color: Highlight | None = None,
+    attrs: Iterable[Attribute] | None = None,
     **kwargs: Any,
 ) -> None:
     cprint(text, color, on_color, attrs, **kwargs)
@@ -77,7 +78,7 @@ def assert_cprint(
 def test_color(
     capsys: pytest.CaptureFixture[str],
     monkeypatch: pytest.MonkeyPatch,
-    color: str,
+    color: Color,
     expected: str,
 ) -> None:
     # Arrange
@@ -108,7 +109,7 @@ def test_color(
 def test_on_color(
     capsys: pytest.CaptureFixture[str],
     monkeypatch: pytest.MonkeyPatch,
-    on_color: str,
+    on_color: Highlight,
     expected: str,
 ) -> None:
     # Arrange
@@ -133,7 +134,7 @@ def test_on_color(
 def test_attrs(
     capsys: pytest.CaptureFixture[str],
     monkeypatch: pytest.MonkeyPatch,
-    attr: str,
+    attr: Attribute,
     expected: str,
 ) -> None:
     # Arrange

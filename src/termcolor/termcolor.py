@@ -29,6 +29,8 @@ import sys
 import warnings
 from typing import Any, Iterable
 
+from ._types import Attribute, Color, Highlight
+
 
 def __getattr__(name: str) -> list[str]:
     if name == "__ALL__":
@@ -43,7 +45,7 @@ def __getattr__(name: str) -> list[str]:
     raise AttributeError(msg)
 
 
-ATTRIBUTES = {
+ATTRIBUTES: dict[Attribute, int] = {
     "bold": 1,
     "dark": 2,
     "underline": 4,
@@ -52,8 +54,7 @@ ATTRIBUTES = {
     "concealed": 8,
 }
 
-
-HIGHLIGHTS = {
+HIGHLIGHTS: dict[Highlight, int] = {
     "on_black": 40,
     "on_grey": 40,  # Actually black but kept for backwards compatibility
     "on_red": 41,
@@ -73,7 +74,7 @@ HIGHLIGHTS = {
     "on_white": 107,
 }
 
-COLORS = {
+COLORS: dict[Color, int] = {
     "black": 30,
     "grey": 30,  # Actually black but kept for backwards compatibility
     "red": 31,
@@ -128,9 +129,9 @@ def _can_do_colour(
 
 def colored(
     text: str,
-    color: str | None = None,
-    on_color: str | None = None,
-    attrs: Iterable[str] | None = None,
+    color: Color | None = None,
+    on_color: Highlight | None = None,
+    attrs: Iterable[Attribute] | None = None,
     *,
     no_color: bool | None = None,
     force_color: bool | None = None,
@@ -173,9 +174,9 @@ def colored(
 
 def cprint(
     text: str,
-    color: str | None = None,
-    on_color: str | None = None,
-    attrs: Iterable[str] | None = None,
+    color: Color | None = None,
+    on_color: Highlight | None = None,
+    attrs: Iterable[Attribute] | None = None,
     *,
     no_color: bool | None = None,
     force_color: bool | None = None,
