@@ -29,6 +29,8 @@ import sys
 import warnings
 from typing import Any, Iterable
 
+from ._types import Attribute, Color, Highlight
+
 
 def __getattr__(name: str) -> list[str]:
     if name == "__ALL__":
@@ -43,7 +45,7 @@ def __getattr__(name: str) -> list[str]:
     raise AttributeError(msg)
 
 
-ATTRIBUTES = {
+ATTRIBUTES: dict[Attribute, int] = {
     "bold": 1,
     "dark": 2,
     "underline": 4,
@@ -52,8 +54,7 @@ ATTRIBUTES = {
     "concealed": 8,
 }
 
-
-HIGHLIGHTS = {
+HIGHLIGHTS: dict[Highlight, int] = {
     "on_black": 40,
     "on_grey": 40,  # Actually black but kept for backwards compatibility
     "on_red": 41,
@@ -73,7 +74,7 @@ HIGHLIGHTS = {
     "on_white": 107,
 }
 
-COLORS = {
+COLORS: dict[Color, int] = {
     "black": 30,
     "grey": 30,  # Actually black but kept for backwards compatibility
     "red": 31,
@@ -127,10 +128,10 @@ def _can_do_colour(
 
 
 def colored(
-    text: str,
-    color: str | None = None,
-    on_color: str | None = None,
-    attrs: Iterable[str] | None = None,
+    text: object,
+    color: Color | None = None,
+    on_color: Highlight | None = None,
+    attrs: Iterable[Attribute] | None = None,
     *,
     no_color: bool | None = None,
     force_color: bool | None = None,
@@ -154,28 +155,31 @@ def colored(
         colored('Hello, World!', 'red', 'on_black', ['bold', 'blink'])
         colored('Hello, World!', 'green')
     """
+    result = str(text)
     if not _can_do_colour(no_color=no_color, force_color=force_color):
-        return text
+        return result
 
     fmt_str = "\033[%dm%s"
     if color is not None:
-        text = fmt_str % (COLORS[color], text)
+        result = fmt_str % (COLORS[color], result)
 
     if on_color is not None:
-        text = fmt_str % (HIGHLIGHTS[on_color], text)
+        result = fmt_str % (HIGHLIGHTS[on_color], result)
 
     if attrs is not None:
         for attr in attrs:
-            text = fmt_str % (ATTRIBUTES[attr], text)
+            result = fmt_str % (ATTRIBUTES[attr], result)
 
-    return text + RESET
+    result += RESET
+
+    return result
 
 
 def cprint(
-    text: str,
-    color: str | None = None,
-    on_color: str | None = None,
-    attrs: Iterable[str] | None = None,
+    text: object,
+    color: Color | None = None,
+    on_color: Highlight | None = None,
+    attrs: Iterable[Attribute] | None = None,
     *,
     no_color: bool | None = None,
     force_color: bool | None = None,
