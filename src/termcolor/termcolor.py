@@ -120,12 +120,12 @@ def _can_do_colour(
         return False
     if "FORCE_COLOR" in os.environ:
         return True
+
     return (
-        hasattr(sys.stdout, "isatty")
-        and sys.stdout.isatty()
+        hasattr(sys.stdout, "fileno")
+        and sys.stdout.fileno()
         and os.environ.get("TERM") != "dumb"
     )
-
 
 def colored(
     text: object,
