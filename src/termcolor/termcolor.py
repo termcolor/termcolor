@@ -122,9 +122,18 @@ def _can_do_colour(
         return True
 
     try:
-        return hasattr(sys.stdout, "fileno") and os.isatty(sys.stdout.fileno()) and os.environ.get("TERM") != "dumb"
+        return (
+            hasattr(sys.stdout, "fileno")
+            and os.isatty(sys.stdout.fileno())
+            and os.environ.get("TERM") != "dumb"
+        )
     except:
-        return hasattr(sys.stdout, "isatty") and sys.stdout.isatty() and os.environ.get("TERM") != "dumb"
+        return (
+            hasattr(sys.stdout, "isatty")
+            and sys.stdout.isatty()
+            and os.environ.get("TERM") != "dumb"
+        )
+
 
 def colored(
     text: object,

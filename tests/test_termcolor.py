@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-import os, sys
+import os
+import sys
 from typing import Any, Iterable
 
 import pytest
