@@ -24,6 +24,7 @@
 
 from __future__ import annotations
 
+import io
 import os
 import sys
 import warnings
@@ -127,7 +128,7 @@ def _can_do_colour(
             and os.isatty(sys.stdout.fileno())
             and os.environ.get("TERM") != "dumb"
         )
-    except:
+    except io.UnsupportedOperation:
         return (
             hasattr(sys.stdout, "isatty")
             and sys.stdout.isatty()
