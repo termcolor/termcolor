@@ -24,9 +24,9 @@ def setup_module() -> None:
 
 def test_basic(monkeypatch: pytest.MonkeyPatch) -> None:
     # Arrange
+    monkeypatch.setattr(os, "isatty", lambda fd: True)
     monkeypatch.setattr("sys.stdout.isatty", lambda: True)
     monkeypatch.setattr("sys.stdout.fileno", lambda: 1)
-    monkeypatch.setattr(os, "isatty", lambda fd: True)
 
     # Act / Assert
     assert colored("text") == "text\x1b[0m"
@@ -84,9 +84,9 @@ def test_color(
     expected: str,
 ) -> None:
     # Arrange
+    monkeypatch.setattr(os, "isatty", lambda fd: True)
     monkeypatch.setattr("sys.stdout.isatty", lambda: True)
     monkeypatch.setattr("sys.stdout.fileno", lambda: 1)
-    monkeypatch.setattr(os, "isatty", lambda fd: True)
 
     # Act / Assert
     assert colored("text", color=color) == expected
@@ -117,9 +117,9 @@ def test_on_color(
     expected: str,
 ) -> None:
     # Arrange
+    monkeypatch.setattr(os, "isatty", lambda fd: True)
     monkeypatch.setattr("sys.stdout.isatty", lambda: True)
     monkeypatch.setattr("sys.stdout.fileno", lambda: 1)
-    monkeypatch.setattr(os, "isatty", lambda fd: True)
 
     # Act / Assert
     assert colored("text", on_color=on_color) == expected
@@ -144,9 +144,9 @@ def test_attrs(
     expected: str,
 ) -> None:
     # Arrange
+    monkeypatch.setattr(os, "isatty", lambda fd: True)
     monkeypatch.setattr("sys.stdout.isatty", lambda: True)
     monkeypatch.setattr("sys.stdout.fileno", lambda: 1)
-    monkeypatch.setattr(os, "isatty", lambda fd: True)
 
     # Act / Assert
     assert colored("text", attrs=[attr]) == expected
@@ -249,9 +249,9 @@ def test_environment_variables(
 def test_tty(monkeypatch: pytest.MonkeyPatch, test_isatty: bool, expected: str) -> None:
     """Assert color when attached to tty, no color when not attached"""
     # Arrange
+    monkeypatch.setattr(os, "isatty", lambda fd: test_isatty)
     monkeypatch.setattr("sys.stdout.isatty", lambda: test_isatty)
     monkeypatch.setattr("sys.stdout.fileno", lambda: 1)
-    monkeypatch.setattr(os, "isatty", lambda fd: test_isatty)
 
     # Act / Assert
     assert colored("text", color="cyan") == expected
