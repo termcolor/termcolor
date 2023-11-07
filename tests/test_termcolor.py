@@ -205,6 +205,7 @@ def test_environment_variables_force_color(
         (None, None, ["FORCE_COLOR=1"], True),
         (None, None, ["ANSI_COLORS_DISABLED=1", "NO_COLOR=1", "FORCE_COLOR=1"], False),
         (None, None, ["NO_COLOR=1", "FORCE_COLOR=1"], False),
+        (None, None, ["TERM=dumb"], False),
         # Set only parameter overrides
         (True, None, [None], False),
         (None, True, [None], True),
@@ -230,7 +231,7 @@ def test_environment_variables(
         if not env_var:
             continue
         name, value = env_var.split("=")
-        print(name, value)
+        print(f"{name}={value}")
         monkeypatch.setenv(name, value)
 
     assert (
