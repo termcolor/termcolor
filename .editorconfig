@@ -14,5 +14,5 @@ indent_style = space
 trim_trailing_whitespace = true
 
 # Two-space indentation
-[*.yml]
+[*.{toml,yml}]
 indent_size = 2
