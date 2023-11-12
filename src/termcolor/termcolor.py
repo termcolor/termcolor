@@ -24,6 +24,7 @@
 
 from __future__ import annotations
 
+import io
 import os
 import sys
 import warnings
@@ -120,11 +121,17 @@ def _can_do_colour(
         return False
     if "FORCE_COLOR" in os.environ:
         return True
-    return (
-        hasattr(sys.stdout, "isatty")
-        and sys.stdout.isatty()
-        and os.environ.get("TERM") != "dumb"
-    )
+
+    # Then check system:
+    if os.environ.get("TERM") == "dumb":
+        return False
+    if not hasattr(sys.stdout, "fileno"):
+        return False
+
+    try:
+        return os.isatty(sys.stdout.fileno())
+    except io.UnsupportedOperation:
+        return sys.stdout.isatty()
 
 
 def colored(
