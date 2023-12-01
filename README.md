@@ -89,3 +89,21 @@ cprint("Attention!", "red", attrs=["bold"], file=sys.stderr)
 | Windows      | no      | no   | no        | no         | yes     | no        |
 | Cygwin SSH   | yes     | no   | color     | color      | color   | yes       |
 | Mac Terminal | yes     | no   | yes       | yes        | yes     | yes       |
+
+## Overrides
+
+Terminal colour detection can be disabled or enabled in several ways.
+
+In order of precedence:
+
+1. Calling `colored` or `cprint` with a truthy `no_color` disables colour.
+2. Calling `colored` or `cprint` with a truthy `force_color` forces colour.
+3. Setting the `ANSI_COLORS_DISABLED` environment variable to any value disables colour.
+4. Setting the [`NO_COLOR`](https://no-color.org/) environment variable to any value
+   disables colour.
+5. Setting the [`FORCE_COLOR`](https://force-color.org/) environment variable to any
+   value forces colour.
+6. Setting the `TERM` environment variable to `dumb`, or using such a
+   [dumb terminal](https://en.wikipedia.org/wiki/Computer_terminal#Character-oriented_terminal),
+   disables colour.
+7. Finally, termcolor will attempt to detect whether the terminal supports colour.
