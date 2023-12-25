@@ -51,6 +51,7 @@ if __name__ == "__main__":
     cprint("Blink yellow color", "yellow", attrs=["blink"])
     cprint("Reversed blue color", "blue", attrs=["reverse"])
     cprint("Concealed Magenta color", "magenta", attrs=["concealed"])
+    cprint("Strike cyan color", "cyan", attrs=["strike"])
     cprint(
         "Bold underline reverse cyan color",
         "cyan",

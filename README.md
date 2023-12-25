@@ -64,7 +64,7 @@ cprint("Attention!", "red", attrs=["bold"], file=sys.stderr)
 | `yellow`        | `on_yellow`        | `blink`     |
 | `blue`          | `on_blue`          | `reverse`   |
 | `magenta`       | `on_magenta`       | `concealed` |
-| `cyan`          | `on_cyan`          |             |
+| `cyan`          | `on_cyan`          | `strike`    |
 | `white`         | `on_white`         |             |
 | `light_grey`    | `on_light_grey`    |             |
 | `dark_grey`     | `on_dark_grey`     |             |
