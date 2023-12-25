@@ -135,6 +135,7 @@ def test_on_color(
         ("blink", "\x1b[5mtext\x1b[0m"),
         ("reverse", "\x1b[7mtext\x1b[0m"),
         ("concealed", "\x1b[8mtext\x1b[0m"),
+        ("strike", "\x1b[9mtext\x1b[0m"),
     ],
 )
 def test_attrs(
