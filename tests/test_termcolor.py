@@ -6,7 +6,7 @@ from typing import Any, Iterable
 import pytest
 
 from termcolor import ATTRIBUTES, COLORS, HIGHLIGHTS, colored, cprint, termcolor
-from termcolor._types import Attribute, Color, Highlight
+from termcolor._types import Attribute, Color
 
 ALL_COLORS = [*COLORS, None]
 ALL_HIGHLIGHTS = [*HIGHLIGHTS, None]
@@ -50,7 +50,7 @@ def assert_cprint(
     expected: str,
     text: str,
     color: Color | None = None,
-    on_color: Highlight | None = None,
+    on_color: Color | None = None,
     attrs: Iterable[Attribute] | None = None,
     **kwargs: Any,
 ) -> None:
@@ -96,24 +96,24 @@ def test_color(
 @pytest.mark.parametrize(
     "on_color, expected",
     [
-        ("on_black", "\x1b[40mtext\x1b[0m"),
-        ("on_grey", "\x1b[40mtext\x1b[0m"),
-        ("on_red", "\x1b[41mtext\x1b[0m"),
-        ("on_green", "\x1b[42mtext\x1b[0m"),
-        ("on_yellow", "\x1b[43mtext\x1b[0m"),
-        ("on_blue", "\x1b[44mtext\x1b[0m"),
-        ("on_magenta", "\x1b[45mtext\x1b[0m"),
-        ("on_cyan", "\x1b[46mtext\x1b[0m"),
-        ("on_white", "\x1b[107mtext\x1b[0m"),
-        ("on_light_grey", "\x1b[47mtext\x1b[0m"),
-        ("on_dark_grey", "\x1b[100mtext\x1b[0m"),
-        ("on_light_blue", "\x1b[104mtext\x1b[0m"),
+        ("black", "\x1b[40mtext\x1b[0m"),
+        ("grey", "\x1b[40mtext\x1b[0m"),
+        ("red", "\x1b[41mtext\x1b[0m"),
+        ("green", "\x1b[42mtext\x1b[0m"),
+        ("yellow", "\x1b[43mtext\x1b[0m"),
+        ("blue", "\x1b[44mtext\x1b[0m"),
+        ("magenta", "\x1b[45mtext\x1b[0m"),
+        ("cyan", "\x1b[46mtext\x1b[0m"),
+        ("white", "\x1b[107mtext\x1b[0m"),
+        ("light_grey", "\x1b[47mtext\x1b[0m"),
+        ("dark_grey", "\x1b[100mtext\x1b[0m"),
+        ("light_blue", "\x1b[104mtext\x1b[0m"),
     ],
 )
 def test_on_color(
     capsys: pytest.CaptureFixture[str],
     monkeypatch: pytest.MonkeyPatch,
-    on_color: Highlight,
+    on_color: Color,
     expected: str,
 ) -> None:
     # Arrange
