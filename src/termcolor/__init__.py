@@ -6,7 +6,6 @@ from termcolor.termcolor import ATTRIBUTES, COLORS, HIGHLIGHTS, RESET, colored, 
 __all__ = [
     "ATTRIBUTES",
     "COLORS",
-    "HIGHLIGHTS",
     "RESET",
     "colored",
     "cprint",
