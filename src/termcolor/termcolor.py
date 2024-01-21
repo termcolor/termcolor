@@ -57,23 +57,23 @@ ATTRIBUTES: dict[Attribute, int] = {
 }
 
 HIGHLIGHTS: dict[Highlight, int] = {
-    "on_black": 40,
-    "on_grey": 40,  # Actually black but kept for backwards compatibility
-    "on_red": 41,
-    "on_green": 42,
-    "on_yellow": 43,
-    "on_blue": 44,
-    "on_magenta": 45,
-    "on_cyan": 46,
-    "on_light_grey": 47,
-    "on_dark_grey": 100,
-    "on_light_red": 101,
-    "on_light_green": 102,
-    "on_light_yellow": 103,
-    "on_light_blue": 104,
-    "on_light_magenta": 105,
-    "on_light_cyan": 106,
-    "on_white": 107,
+    "black": 40,
+    "grey": 40,  # Actually black but kept for backwards compatibility
+    "red": 41,
+    "green": 42,
+    "yellow": 43,
+    "blue": 44,
+    "magenta": 45,
+    "cyan": 46,
+    "light_grey": 47,
+    "dark_grey": 100,
+    "light_red": 101,
+    "light_green": 102,
+    "light_yellow": 103,
+    "light_blue": 104,
+    "light_magenta": 105,
+    "light_cyan": 106,
+    "white": 107,
 }
 
 COLORS: dict[Color, int] = {
@@ -152,9 +152,9 @@ def colored(
         light_magenta, light_cyan.
 
     Available text highlights:
-        on_black, on_red, on_green, on_yellow, on_blue, on_magenta, on_cyan, on_white,
-        on_light_grey, on_dark_grey, on_light_red, on_light_green, on_light_yellow,
-        on_light_blue, on_light_magenta, on_light_cyan.
+        black, red, green, yellow, blue, magenta, cyan, white,
+        light_grey, dark_grey, light_red, light_green, light_yellow,
+        light_blue, light_magenta, light_cyan.
 
     Available attributes:
         bold, dark, underline, blink, reverse, concealed.
