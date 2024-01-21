@@ -30,7 +30,7 @@ import sys
 import warnings
 from typing import Any, Iterable
 
-from ._types import Attribute, Color, Highlight
+from ._types import Attribute, Color
 
 
 def __getattr__(name: str) -> list[str]:
@@ -56,7 +56,7 @@ ATTRIBUTES: dict[Attribute, int] = {
     "strike": 9,
 }
 
-HIGHLIGHTS: dict[Highlight, int] = {
+HIGHLIGHTS: dict[Color, int] = {
     "black": 40,
     "grey": 40,  # Actually black but kept for backwards compatibility
     "red": 41,
