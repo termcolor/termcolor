@@ -12,26 +12,6 @@ Attribute = Literal[
     "strike",
 ]
 
-Highlight = Literal[
-    "on_black",
-    "on_grey",
-    "on_red",
-    "on_green",
-    "on_yellow",
-    "on_blue",
-    "on_magenta",
-    "on_cyan",
-    "on_light_grey",
-    "on_dark_grey",
-    "on_light_red",
-    "on_light_green",
-    "on_light_yellow",
-    "on_light_blue",
-    "on_light_magenta",
-    "on_light_cyan",
-    "on_white",
-]
-
 Color = Literal[
     "black",
     "grey",
