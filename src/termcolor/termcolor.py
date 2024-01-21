@@ -186,7 +186,7 @@ def colored(
 def cprint(
     text: object,
     color: Color | None = None,
-    on_color: Highlight | None = None,
+    on_color: Color | None = None,
     attrs: Iterable[Attribute] | None = None,
     *,
     no_color: bool | None = None,
