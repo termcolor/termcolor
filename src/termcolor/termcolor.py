@@ -138,7 +138,7 @@ def _can_do_colour(
 def colored(
     text: object,
     color: Color | None = None,
-    on_color: Highlight | None = None,
+    on_color: Color | None = None,
     attrs: Iterable[Attribute] | None = None,
     *,
     no_color: bool | None = None,
@@ -160,7 +160,7 @@ def colored(
         bold, dark, underline, blink, reverse, concealed.
 
     Example:
-        colored('Hello, World!', 'red', 'on_black', ['bold', 'blink'])
+        colored('Hello, World!', 'red', 'black', ['bold', 'blink'])
         colored('Hello, World!', 'green')
     """
     result = str(text)
