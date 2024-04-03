@@ -1,3 +1,4 @@
+from __future__ import annotations
 
 BOLD = "bold"
 DARK = "dark"
