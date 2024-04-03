@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 ON_BLACK = "on_black"
 ON_GREY = "on_grey"
 ON_RED = "on_red"
