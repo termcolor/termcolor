@@ -19,9 +19,13 @@ keywords = [
   "termcolor",
   "terminal",
 ]
-license = {text = "MIT"}
-maintainers = [{name = "Hugo van Kemenade"}]
-authors = [{name = "Konstantin Lepa", email = "konstantin.lepa@gmail.com"}]
+license = { text = "MIT" }
+maintainers = [
+  { name = "Hugo van Kemenade" },
+]
+authors = [
+  { name = "Konstantin Lepa", email = "konstantin.lepa@gmail.com" },
+]
 requires-python = ">=3.8"
 classifiers = [
   "Development Status :: 5 - Production/Stable",
@@ -44,15 +48,13 @@ classifiers = [
 dynamic = [
   "version",
 ]
-[project.optional-dependencies]
-tests = [
+optional-dependencies.tests = [
   "pytest",
   "pytest-cov",
 ]
-[project.urls]
-Changelog = "https://github.com/termcolor/termcolor/releases"
-Homepage = "https://github.com/termcolor/termcolor"
-Source = "https://github.com/termcolor/termcolor"
+urls.Changelog = "https://github.com/termcolor/termcolor/releases"
+urls.Homepage = "https://github.com/termcolor/termcolor"
+urls.Source = "https://github.com/termcolor/termcolor"
 
 [tool.hatch]
 version.source = "vcs"
@@ -62,16 +64,16 @@ local_scheme = "no-local-version"
 
 [tool.ruff]
 select = [
-  "E", # pycodestyle errors
-  "EM", # flake8-errmsg
-  "F", # pyflakes errors
-  "I", # isort
-  "ISC", # flake8-implicit-str-concat
-  "PGH", # pygrep-hooks
+  "E",      # pycodestyle errors
+  "EM",     # flake8-errmsg
+  "F",      # pyflakes errors
+  "I",      # isort
+  "ISC",    # flake8-implicit-str-concat
+  "PGH",    # pygrep-hooks
   "RUF100", # unused noqa (yesqa)
-  "UP", # pyupgrade
-  "W", # pycodestyle warnings
-  "YTT", # flake8-2020
+  "UP",     # pyupgrade
+  "W",      # pycodestyle warnings
+  "YTT",    # flake8-2020
   # "LOG", # TODO: enable flake8-logging when it's not in preview anymore
 ]
 extend-ignore = [
@@ -81,6 +83,12 @@ extend-ignore = [
   "E241", # Multiple spaces after ','
 ]
 
-[tool.ruff.isort]
-known-first-party = ["termcolor"]
-required-imports = ["from __future__ import annotations"]
+isort.known-first-party = [
+  "termcolor",
+]
+isort.required-imports = [
+  "from __future__ import annotations",
+]
+
+[tool.pyproject-fmt]
+max_supported_python = "3.13"
