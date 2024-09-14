@@ -28,7 +28,8 @@ import io
 import os
 import sys
 import warnings
-from typing import Any, Iterable
+from collections.abc import Iterable
+from typing import Any
 
 from ._types import Attribute, Color, Highlight
 
