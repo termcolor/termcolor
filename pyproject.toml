@@ -20,12 +20,8 @@ keywords = [
   "terminal",
 ]
 license = { text = "MIT" }
-maintainers = [
-  { name = "Hugo van Kemenade" },
-]
-authors = [
-  { name = "Konstantin Lepa", email = "konstantin.lepa@gmail.com" },
-]
+maintainers = [ { name = "Hugo van Kemenade" } ]
+authors = [ { name = "Konstantin Lepa", email = "konstantin.lepa@gmail.com" } ]
 requires-python = ">=3.9"
 classifiers = [
   "Development Status :: 5 - Production/Stable",
@@ -44,9 +40,7 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: PyPy",
   "Topic :: Terminals",
 ]
-dynamic = [
-  "version",
-]
+dynamic = [ "version" ]
 optional-dependencies.tests = [
   "pytest",
   "pytest-cov",
@@ -62,32 +56,41 @@ version.source = "vcs"
 local_scheme = "no-local-version"
 
 [tool.ruff]
-select = [
+fix = true
+lint.select = [
+  "C4",     # flake8-comprehensions
   "E",      # pycodestyle errors
   "EM",     # flake8-errmsg
   "F",      # pyflakes errors
   "I",      # isort
+  "ICN",    # flake8-import-conventions
   "ISC",    # flake8-implicit-str-concat
+  "LOG",    # flake8-logging
   "PGH",    # pygrep-hooks
+  "PYI",    # flake8-pyi
+  "RUF022", # unsorted-dunder-all
   "RUF100", # unused noqa (yesqa)
   "UP",     # pyupgrade
   "W",      # pycodestyle warnings
   "YTT",    # flake8-2020
-  # "LOG", # TODO: enable flake8-logging when it's not in preview anymore
 ]
-extend-ignore = [
+lint.ignore = [
   "E203", # Whitespace before ':'
   "E221", # Multiple spaces before operator
   "E226", # Missing whitespace around arithmetic operator
   "E241", # Multiple spaces after ','
 ]
-
-isort.known-first-party = [
-  "termcolor",
-]
-isort.required-imports = [
-  "from __future__ import annotations",
-]
+lint.flake8-import-conventions.aliases.datetime = "dt"
+lint.flake8-import-conventions.banned-from = [ "datetime" ]
+lint.isort.known-first-party = [ "termcolor" ]
+lint.isort.required-imports = [ "from __future__ import annotations" ]
 
 [tool.pyproject-fmt]
 max_supported_python = "3.13"
+
+[tool.pytest.ini_options]
+filterwarnings = [
+  # Python <= 3.11
+  "ignore:sys.monitoring isn't available, using default core:coverage.exceptions.CoverageWarning",
+]
+testpaths = [ "tests" ]
