@@ -191,15 +191,23 @@ def test_environment_variables_disable_color(
         "false",
         "1",
         "0",
-        "",
     ],
 )
 def test_environment_variables_force_color(
     monkeypatch: pytest.MonkeyPatch, test_value: str
 ) -> None:
-    """Assert color applied when this env var set, regardless of value"""
+    """Assert color applied when this env var is present and not an empty string,
+    regardless of value"""
     monkeypatch.setenv("FORCE_COLOR", test_value)
     assert colored("text", color="cyan") == "\x1b[36mtext\x1b[0m"
+
+
+def test_environment_variables_force_color_empty_string(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """Assert color not applied when empty string"""
+    monkeypatch.setenv("FORCE_COLOR", "")
+    assert colored("text", color="cyan") == "text"
 
 
 @pytest.mark.parametrize(
@@ -208,9 +216,12 @@ def test_environment_variables_force_color(
         # Set only env vars
         (None, None, ["ANSI_COLORS_DISABLED=1"], False),
         (None, None, ["NO_COLOR=1"], False),
+        (None, None, ["NO_COLOR="], False),
         (None, None, ["FORCE_COLOR=1"], True),
+        (None, None, ["FORCE_COLOR="], False),
         (None, None, ["ANSI_COLORS_DISABLED=1", "NO_COLOR=1", "FORCE_COLOR=1"], False),
         (None, None, ["NO_COLOR=1", "FORCE_COLOR=1"], False),
+        (None, None, ["NO_COLOR=1", "FORCE_COLOR="], False),
         (None, None, ["TERM=dumb"], False),
         # Set only parameter overrides
         (True, None, [None], False),
