@@ -28,10 +28,13 @@ import io
 import os
 import sys
 import warnings
-from collections.abc import Iterable
-from typing import Any
 
-from ._types import Attribute, Color, Highlight
+TYPE_CHECKING = False
+if TYPE_CHECKING:
+    from collections.abc import Iterable
+    from typing import Any
+
+    from ._types import Attribute, Color, Highlight
 
 
 def __getattr__(name: str) -> list[str]:
