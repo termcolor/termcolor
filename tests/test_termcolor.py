@@ -1,13 +1,17 @@
 from __future__ import annotations
 
 import os
-from collections.abc import Iterable
-from typing import Any
 
 import pytest
 
 from termcolor import ATTRIBUTES, COLORS, HIGHLIGHTS, colored, cprint, termcolor
-from termcolor._types import Attribute, Color, Highlight
+
+TYPE_CHECKING = False
+if TYPE_CHECKING:
+    from collections.abc import Iterable
+    from typing import Any
+
+    from termcolor._types import Attribute, Color, Highlight
 
 ALL_COLORS = [*COLORS, None]
 ALL_HIGHLIGHTS = [*HIGHLIGHTS, None]
