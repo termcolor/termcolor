@@ -120,7 +120,7 @@ def _can_do_colour(
         return True
 
     # Then check env vars:
-    if "ANSI_COLORS_DISABLED" in os.environ:
+    if os.environ.get("ANSI_COLORS_DISABLED"):
         return False
     if os.environ.get("NO_COLOR"):
         return False

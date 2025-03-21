@@ -215,11 +215,14 @@ def test_environment_variables_force_color_empty_string(
     [
         # Set only env vars
         (None, None, ["ANSI_COLORS_DISABLED=1"], False),
+        (None, None, ["ANSI_COLORS_DISABLED="], False),
         (None, None, ["NO_COLOR=1"], False),
         (None, None, ["NO_COLOR="], False),
         (None, None, ["FORCE_COLOR=1"], True),
         (None, None, ["FORCE_COLOR="], False),
         (None, None, ["ANSI_COLORS_DISABLED=1", "NO_COLOR=1", "FORCE_COLOR=1"], False),
+        (None, None, ["ANSI_COLORS_DISABLED=1", "FORCE_COLOR=1"], False),
+        (None, None, ["ANSI_COLORS_DISABLED=", "FORCE_COLOR=1"], True),
         (None, None, ["NO_COLOR=1", "FORCE_COLOR=1"], False),
         (None, None, ["NO_COLOR=1", "FORCE_COLOR="], False),
         (None, None, ["TERM=dumb"], False),
