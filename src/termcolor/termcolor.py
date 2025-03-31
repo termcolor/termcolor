@@ -33,9 +33,8 @@ if TYPE_CHECKING:
     from collections.abc import Iterable
     from typing import Any
 
-    from ._types import Attribute, Color, Highlight
 
-ATTRIBUTES: dict[Attribute, int] = {
+ATTRIBUTES: dict[str, int] = {
     "bold": 1,
     "dark": 2,
     "underline": 4,
@@ -45,7 +44,7 @@ ATTRIBUTES: dict[Attribute, int] = {
     "strike": 9,
 }
 
-HIGHLIGHTS: dict[Highlight, int] = {
+HIGHLIGHTS: dict[str, int] = {
     "on_black": 40,
     "on_grey": 40,  # Actually black but kept for backwards compatibility
     "on_red": 41,
@@ -65,7 +64,7 @@ HIGHLIGHTS: dict[Highlight, int] = {
     "on_white": 107,
 }
 
-COLORS: dict[Color, int] = {
+COLORS: dict[str, int] = {
     "black": 30,
     "grey": 30,  # Actually black but kept for backwards compatibility
     "red": 31,
@@ -126,9 +125,9 @@ def _can_do_colour(
 
 def colored(
     text: object,
-    color: Color | None = None,
-    on_color: Highlight | None = None,
-    attrs: Iterable[Attribute] | None = None,
+    color: str | None = None,
+    on_color: str | None = None,
+    attrs: Iterable[str] | None = None,
     *,
     no_color: bool | None = None,
     force_color: bool | None = None,
@@ -174,9 +173,9 @@ def colored(
 
 def cprint(
     text: object,
-    color: Color | None = None,
-    on_color: Highlight | None = None,
-    attrs: Iterable[Attribute] | None = None,
+    color: str | None = None,
+    on_color: str | None = None,
+    attrs: Iterable[str] | None = None,
     *,
     no_color: bool | None = None,
     force_color: bool | None = None,
