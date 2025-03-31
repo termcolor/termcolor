@@ -27,7 +27,6 @@ from __future__ import annotations
 import io
 import os
 import sys
-import warnings
 
 TYPE_CHECKING = False
 if TYPE_CHECKING:
@@ -35,20 +34,6 @@ if TYPE_CHECKING:
     from typing import Any
 
     from ._types import Attribute, Color, Highlight
-
-
-def __getattr__(name: str) -> list[str]:
-    if name == "__ALL__":
-        warnings.warn(
-            "__ALL__ is deprecated and will be removed in termcolor 3. "
-            "Use __all__ instead.",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-        return ["colored", "cprint"]
-    msg = f"module '{__name__}' has no attribute '{name}'"
-    raise AttributeError(msg)
-
 
 ATTRIBUTES: dict[Attribute, int] = {
     "bold": 1,

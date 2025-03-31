@@ -262,9 +262,3 @@ def test_tty(monkeypatch: pytest.MonkeyPatch, test_isatty: bool, expected: str) 
 
     # Act / Assert
     assert colored("text", color="cyan") == expected
-
-
-def test_all_deprecation() -> None:
-    """Assert that __ALL__ is deprecated (use __all__ instead)"""
-    with pytest.deprecated_call():
-        assert termcolor.__ALL__
