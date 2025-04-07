@@ -145,7 +145,7 @@ def colored(
         on_light_blue, on_light_magenta, on_light_cyan.
 
     Alternatively, both text colors (color) and highlights (on_color) may
-    be specified via a tuple of ints (R, G, B).
+    be specified via a tuple of 0-255 ints (R, G, B).
 
     Available attributes:
         bold, dark, underline, blink, reverse, concealed.
