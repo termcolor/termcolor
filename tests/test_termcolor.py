@@ -53,8 +53,8 @@ def assert_cprint(
     capsys: pytest.CaptureFixture[str],
     expected: str,
     text: str,
-    color: str | None = None,
-    on_color: str | None = None,
+    color: str | tuple[int, int, int] | None = None,
+    on_color: str | tuple[int, int, int] | None = None,
     attrs: Iterable[str] | None = None,
     **kwargs: Any,
 ) -> None:
@@ -79,12 +79,14 @@ def assert_cprint(
         ("light_grey", "\x1b[37mtext\x1b[0m"),
         ("dark_grey", "\x1b[90mtext\x1b[0m"),
         ("light_blue", "\x1b[94mtext\x1b[0m"),
+        ((1, 2, 3), "\x1b[38;2;1;2;3mtext\x1b[0m"),
+        ((100, 200, 150), "\x1b[38;2;100;200;150mtext\x1b[0m"),
     ],
 )
 def test_color(
     capsys: pytest.CaptureFixture[str],
     monkeypatch: pytest.MonkeyPatch,
-    color: str,
+    color: str | tuple[int, int, int],
     expected: str,
 ) -> None:
     # Arrange
@@ -112,12 +114,14 @@ def test_color(
         ("on_light_grey", "\x1b[47mtext\x1b[0m"),
         ("on_dark_grey", "\x1b[100mtext\x1b[0m"),
         ("on_light_blue", "\x1b[104mtext\x1b[0m"),
+        ((1, 2, 3), "\x1b[48;2;1;2;3mtext\x1b[0m"),
+        ((100, 200, 150), "\x1b[48;2;100;200;150mtext\x1b[0m"),
     ],
 )
 def test_on_color(
     capsys: pytest.CaptureFixture[str],
     monkeypatch: pytest.MonkeyPatch,
-    on_color: str,
+    on_color: str | tuple[int, int, int],
     expected: str,
 ) -> None:
     # Arrange
