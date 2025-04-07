@@ -3,6 +3,7 @@ from __future__ import annotations
 import os
 
 import pytest
+import itertools
 
 from termcolor import ATTRIBUTES, COLORS, HIGHLIGHTS, colored, cprint, termcolor
 
@@ -15,6 +16,7 @@ if TYPE_CHECKING:
 ALL_COLORS = [*COLORS, None]
 ALL_HIGHLIGHTS = [*HIGHLIGHTS, None]
 ALL_ATTRIBUTES = [*ATTRIBUTES, None]
+ALL_RGB_PRODUCTS = list(itertools.product(range(256), repeat=3))
 
 
 def setup_module() -> None:
@@ -53,8 +55,8 @@ def assert_cprint(
     capsys: pytest.CaptureFixture[str],
     expected: str,
     text: str,
-    color: str | None = None,
-    on_color: str | None = None,
+    color: str | tuple[int, int, int] | None = None,
+    on_color: str | tuple[int, int, int] | None = None,
     attrs: Iterable[str] | None = None,
     **kwargs: Any,
 ) -> None:
@@ -79,12 +81,15 @@ def assert_cprint(
         ("light_grey", "\x1b[37mtext\x1b[0m"),
         ("dark_grey", "\x1b[90mtext\x1b[0m"),
         ("light_blue", "\x1b[94mtext\x1b[0m"),
+    ] + [
+        (rgb, "\x1b[38;2;%d;%d;%d\x1b[0m" % rgb)
+        for rgb in ALL_RGB_PRODUCTS
     ],
 )
 def test_color(
     capsys: pytest.CaptureFixture[str],
     monkeypatch: pytest.MonkeyPatch,
-    color: str,
+    color: str | tuple[int, int, int],
     expected: str,
 ) -> None:
     # Arrange
@@ -112,12 +117,15 @@ def test_color(
         ("on_light_grey", "\x1b[47mtext\x1b[0m"),
         ("on_dark_grey", "\x1b[100mtext\x1b[0m"),
         ("on_light_blue", "\x1b[104mtext\x1b[0m"),
+    ] + [
+        (rgb, "\x1b[48;2;%d;%d;%d\x1b[0m" % rgb)
+        for rgb in ALL_RGB_PRODUCTS
     ],
 )
 def test_on_color(
     capsys: pytest.CaptureFixture[str],
     monkeypatch: pytest.MonkeyPatch,
-    on_color: str,
+    on_color: str | tuple[int, int, int],
     expected: str,
 ) -> None:
     # Arrange
