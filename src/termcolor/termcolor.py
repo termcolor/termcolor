@@ -153,26 +153,26 @@ def colored(
     Example:
         colored('Hello, World!', 'red', 'on_black', ['bold', 'blink'])
         colored('Hello, World!', 'green')
-        colored('Hello, World!', (255, 0, 255)) # Purple
+        colored('Hello, World!', (255, 0, 255))  # Purple
     """
     result = str(text)
     if not _can_do_colour(no_color=no_color, force_color=force_color):
         return result
 
     fmt_str = "\033[%dm%s"
-    rgbfmt_fore_str = "\033[38;2;%d;%d;%dm%s"
-    rgbfmt_back_str = "\033[48;2;%d;%d;%dm%s"
+    rgb_fore_fmt_str = "\033[38;2;%d;%d;%dm%s"
+    rgb_back_fmt_str = "\033[48;2;%d;%d;%dm%s"
     if color is not None:
         if isinstance(color, str):
             result = fmt_str % (COLORS[color], result)
         elif isinstance(color, tuple):
-            result = rgbfmt_fore_str % (color[0], color[1], color[2], result)
+            result = rgb_fore_fmt_str % (color[0], color[1], color[2], result)
 
     if on_color is not None:
         if isinstance(on_color, str):
             result = fmt_str % (HIGHLIGHTS[on_color], result)
         elif isinstance(on_color, tuple):
-            result = rgbfmt_back_str % (on_color[0], on_color[1], on_color[2], result)
+            result = rgb_back_fmt_str % (on_color[0], on_color[1], on_color[2], result)
 
     if attrs is not None:
         for attr in attrs:

@@ -78,8 +78,8 @@ cprint("Both foreground and background can use tuples", (100, 150, 250), (50, 60
 | `light_magenta` | `on_light_magenta` |             |
 | `light_cyan`    | `on_light_cyan`    |             |
 
-You can also use any arbitrary RGB color specified as a tuple of 0-255 ints e.g.
-`(100, 150, 250)`.
+You can also use any arbitrary RGB color specified as a tuple of 0-255 integers,
+for example, `(100, 150, 250)`.
 
 ## Terminal properties
 
