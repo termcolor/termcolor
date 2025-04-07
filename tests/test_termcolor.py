@@ -80,8 +80,8 @@ def assert_cprint(
         ("dark_grey", "\x1b[90mtext\x1b[0m"),
         ("light_blue", "\x1b[94mtext\x1b[0m"),
         ((1, 2, 3), "\x1b[38;2;1;2;3mtext\x1b[0m"),
-        ((100, 200, 150), "\x1b[38;2;100;200;150mtext\x1b[0m")
-    ]
+        ((100, 200, 150), "\x1b[38;2;100;200;150mtext\x1b[0m"),
+    ],
 )
 def test_color(
     capsys: pytest.CaptureFixture[str],
@@ -115,8 +115,8 @@ def test_color(
         ("on_dark_grey", "\x1b[100mtext\x1b[0m"),
         ("on_light_blue", "\x1b[104mtext\x1b[0m"),
         ((1, 2, 3), "\x1b[48;2;1;2;3mtext\x1b[0m"),
-        ((100, 200, 150), "\x1b[48;2;100;200;150mtext\x1b[0m")
-    ]
+        ((100, 200, 150), "\x1b[48;2;100;200;150mtext\x1b[0m"),
+    ],
 )
 def test_on_color(
     capsys: pytest.CaptureFixture[str],
