@@ -98,3 +98,19 @@ max_supported_python = "3.14"
 
 [tool.pytest.ini_options]
 testpaths = [ "tests" ]
+
+[tool.coverage.run]
+disable_warnings = [
+  "no-sysmon",
+]
+omit = [
+  "*/termcolor/__main__.py",
+]
+
+[tool.coverage.report]
+# Regexes for lines to exclude from consideration
+exclude_also = [
+  # Don't complain if non-runnable code isn't run:
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]
