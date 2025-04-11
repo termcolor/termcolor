@@ -107,6 +107,9 @@ omit = [
   "*/termcolor/__main__.py",
 ]
 
+[tool.coverage.html]
+show_contexts = true
+
 [tool.coverage.report]
 # Regexes for lines to exclude from consideration
 exclude_also = [
