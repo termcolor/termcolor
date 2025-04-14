@@ -27,6 +27,7 @@ from __future__ import annotations
 import io
 import os
 import sys
+from functools import cache
 
 TYPE_CHECKING = False
 if TYPE_CHECKING:
@@ -88,6 +89,7 @@ COLORS: dict[str, int] = {
 RESET = "\033[0m"
 
 
+@cache
 def _can_do_colour(
     *, no_color: bool | None = None, force_color: bool | None = None
 ) -> bool:

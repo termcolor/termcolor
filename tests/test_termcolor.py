@@ -8,7 +8,7 @@ from termcolor import ATTRIBUTES, COLORS, HIGHLIGHTS, colored, cprint, termcolor
 
 TYPE_CHECKING = False
 if TYPE_CHECKING:
-    from collections.abc import Iterable
+    from collections.abc import Generator, Iterable
     from typing import Any
 
 
@@ -24,6 +24,17 @@ def setup_module() -> None:
             del os.environ[var]
         except KeyError:  # pragma: no cover
             pass
+
+
+@pytest.fixture(autouse=True)
+def clear_lru_cache() -> Generator[Any, None, None]:
+    """
+    Tests may override the underpinnings of the system-under-test,
+    clear the cache after each test to ensure a clean slate.
+    """
+    yield
+    # Clear the cache after each test
+    termcolor._can_do_colour.cache_clear()
 
 
 def test_basic(monkeypatch: pytest.MonkeyPatch) -> None:
@@ -261,6 +272,35 @@ def test_environment_variables(
         termcolor._can_do_colour(no_color=test_no_color, force_color=test_force_color)
         == expected
     )
+
+
+def test_cached_behavior(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Assert that the cached behavior is correct"""
+    # Arrange
+    monkeypatch.setattr(os, "isatty", lambda fd: True)
+    monkeypatch.setattr("sys.stdout.isatty", lambda: True)
+    monkeypatch.setattr("sys.stdout.fileno", lambda: 1)
+
+    # Act / Assert
+    assert colored("text") == "text\x1b[0m"
+    assert colored("text") == "text\x1b[0m"
+    assert termcolor._can_do_colour.cache_info().hits == 1
+    assert termcolor._can_do_colour.cache_info().misses == 1
+    assert termcolor._can_do_colour.cache_info().currsize == 1
+
+    # Different function signature passed to underlying function, adds to cache
+    assert colored("text", force_color=True) == "text\x1b[0m"
+    assert colored("text", no_color=True) == "text"
+    assert termcolor._can_do_colour.cache_info().hits == 1
+    assert termcolor._can_do_colour.cache_info().misses == 3
+    assert termcolor._can_do_colour.cache_info().currsize == 3
+
+    # Changing text or color should not add to cache
+    assert colored("text", color="red") == "\x1b[31mtext\x1b[0m"
+    assert colored("other", color="blue") == "\x1b[34mother\x1b[0m"
+    assert termcolor._can_do_colour.cache_info().hits == 3
+    assert termcolor._can_do_colour.cache_info().misses == 3
+    assert termcolor._can_do_colour.cache_info().currsize == 3
 
 
 @pytest.mark.parametrize(
