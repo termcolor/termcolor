@@ -286,6 +286,7 @@ def test_no_sys_stdout_fileno(monkeypatch: pytest.MonkeyPatch) -> None:
     """Assert no color when sys.stdout has no file descriptor"""
     # Arrange
     monkeypatch.setattr("sys.stdout", object())
+
     # Act / Assert
     assert colored("text", color="cyan") == "text"
 
