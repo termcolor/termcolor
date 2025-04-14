@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import io
 import os
 
 import pytest
@@ -276,6 +277,41 @@ def test_tty(monkeypatch: pytest.MonkeyPatch, test_isatty: bool, expected: str) 
     monkeypatch.setattr(os, "isatty", lambda fd: test_isatty)
     monkeypatch.setattr("sys.stdout.isatty", lambda: test_isatty)
     monkeypatch.setattr("sys.stdout.fileno", lambda: 1)
+
+    # Act / Assert
+    assert colored("text", color="cyan") == expected
+
+
+def test_no_sys_stdout_fileno(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Assert no color when sys.stdout has no file descriptor"""
+    # Arrange
+    monkeypatch.setattr("sys.stdout", object())
+
+    # Act / Assert
+    assert colored("text", color="cyan") == "text"
+
+
+@pytest.mark.parametrize(
+    "test_isatty, expected",
+    [
+        (True, "\x1b[36mtext\x1b[0m"),
+        (False, "text"),
+    ],
+)
+def test_unsupported_operation(
+    monkeypatch: pytest.MonkeyPatch, test_isatty: bool, expected: str
+) -> None:
+    """Assert no color when sys.stdout does not support the operation"""
+
+    # Arrange
+    class MockStdout:
+        def fileno(self) -> None:
+            raise io.UnsupportedOperation()
+
+        def isatty(self) -> bool:
+            return test_isatty
+
+    monkeypatch.setattr("sys.stdout", MockStdout())
 
     # Act / Assert
     assert colored("text", color="cyan") == expected
