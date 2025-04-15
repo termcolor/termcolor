@@ -93,6 +93,7 @@ def assert_cprint(
         ("light_blue", "\x1b[94mtext\x1b[0m"),
         ((1, 2, 3), "\x1b[38;2;1;2;3mtext\x1b[0m"),
         ((100, 200, 150), "\x1b[38;2;100;200;150mtext\x1b[0m"),
+        (000, "text\x1b[0m"),  # invalid input type
     ],
 )
 def test_color(
@@ -128,6 +129,7 @@ def test_color(
         ("on_light_blue", "\x1b[104mtext\x1b[0m"),
         ((1, 2, 3), "\x1b[48;2;1;2;3mtext\x1b[0m"),
         ((100, 200, 150), "\x1b[48;2;100;200;150mtext\x1b[0m"),
+        (000, "text\x1b[0m"),  # invalid input type
     ],
 )
 def test_on_color(
