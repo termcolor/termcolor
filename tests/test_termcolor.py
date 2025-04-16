@@ -357,3 +357,31 @@ def test_unsupported_operation(
 
     # Act / Assert
     assert colored("text", color="cyan") == expected
+
+
+@pytest.mark.parametrize(
+    "isatty_value, expected, kwargs",
+    [
+        # no_color when isatty
+        (True, "text", {"no_color": True}),
+        # force_color when not isatty
+        (False, "\x1b[36mtext\x1b[0m", {"force_color": True}),
+        # print kwargs pass through
+        (True, "\x1b[36mtext\x1b[0m!", {"end": "!\n"}),
+    ],
+)
+def test_cprint_kwargs(
+    capsys: pytest.CaptureFixture[str],
+    monkeypatch: pytest.MonkeyPatch,
+    isatty_value: bool,
+    expected: str,
+    kwargs: dict[str, Any],
+) -> None:
+    """Test cprint with various parameter combinations"""
+    # Arrange
+    monkeypatch.setattr(os, "isatty", lambda fd: isatty_value)
+    monkeypatch.setattr("sys.stdout.isatty", lambda: isatty_value)
+    monkeypatch.setattr("sys.stdout.fileno", lambda: 1)
+
+    # Act / Assert
+    assert_cprint(capsys, expected, "text", color="cyan", **kwargs)
