@@ -58,7 +58,7 @@ version.source = "vcs"
 local_scheme = "no-local-version"
 
 [tool.hatch.build.targets.wheel]
-exclude = [ "test" ]
+exclude = [ "tests" ]
 
 [tool.hatch.build.targets.sdist]
 exclude = [ "tests" ]
