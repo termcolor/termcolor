@@ -50,6 +50,7 @@ optional-dependencies.tests = [
 urls.Changelog = "https://github.com/termcolor/termcolor/releases"
 urls.Homepage = "https://github.com/termcolor/termcolor"
 urls.Source = "https://github.com/termcolor/termcolor"
+exclude = ["tests"]
 
 [tool.hatch]
 version.source = "vcs"
