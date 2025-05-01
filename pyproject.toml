@@ -50,13 +50,18 @@ optional-dependencies.tests = [
 urls.Changelog = "https://github.com/termcolor/termcolor/releases"
 urls.Homepage = "https://github.com/termcolor/termcolor"
 urls.Source = "https://github.com/termcolor/termcolor"
-exclude = [ "tests" ]
 
 [tool.hatch]
 version.source = "vcs"
 
 [tool.hatch.version.raw-options]
 local_scheme = "no-local-version"
+
+[tool.hatch.build.targets.wheel]
+exclude = [ "test" ]
+
+[tool.hatch.build.targets.sdist]
+exclude = [ "tests" ]
 
 [tool.ruff]
 fix = true
