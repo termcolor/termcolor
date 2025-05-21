@@ -90,7 +90,7 @@ RESET = "\033[0m"
 
 
 @cache
-def _can_do_colour(
+def can_colorize(
     *, no_color: bool | None = None, force_color: bool | None = None
 ) -> bool:
     """Check env vars and for tty/dumb terminal"""
@@ -158,7 +158,7 @@ def colored(
         colored('Hello, World!', (255, 0, 255))  # Purple
     """
     result = str(text)
-    if not _can_do_colour(no_color=no_color, force_color=force_color):
+    if not can_colorize(no_color=no_color, force_color=force_color):
         return result
 
     fmt_str = "\033[%dm%s"
