@@ -101,9 +101,6 @@ testpaths = [ "tests" ]
 
 [tool.coverage.run]
 branch = true
-disable_warnings = [
-  "no-sysmon",
-]
 omit = [
   "*/termcolor/__main__.py",
 ]
@@ -116,5 +113,4 @@ show_contexts = true
 exclude_also = [
   # Don't complain if non-runnable code isn't run:
   "if __name__ == .__main__.:",
-  "if TYPE_CHECKING:",
 ]
