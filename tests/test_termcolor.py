@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import io
 import os
 
 import pytest
@@ -348,7 +347,7 @@ def test_unsupported_operation(
     # Arrange
     class MockStdout:
         def fileno(self) -> None:
-            raise io.UnsupportedOperation()
+            raise OSError
 
         def isatty(self) -> bool:
             return test_isatty
