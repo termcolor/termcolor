@@ -63,12 +63,12 @@ cprint("Both foreground and background can use tuples", (100, 150, 250), (50, 60
 | --------------- | ------------------ | ----------- |
 | `black`         | `on_black`         | `bold`      |
 | `red`           | `on_red`           | `dark`      |
-| `green`         | `on_green`         | `underline` |
-| `yellow`        | `on_yellow`        | `blink`     |
-| `blue`          | `on_blue`          | `reverse`   |
-| `magenta`       | `on_magenta`       | `concealed` |
-| `cyan`          | `on_cyan`          | `strike`    |
-| `white`         | `on_white`         |             |
+| `green`         | `on_green`         | `italic`    |
+| `yellow`        | `on_yellow`        | `underline` |
+| `blue`          | `on_blue`          | `blink`     |
+| `magenta`       | `on_magenta`       | `reverse`   |
+| `cyan`          | `on_cyan`          | `concealed` |
+| `white`         | `on_white`         | `strike`    |
 | `light_grey`    | `on_light_grey`    |             |
 | `dark_grey`     | `on_dark_grey`     |             |
 | `light_red`     | `on_light_red`     |             |
@@ -83,18 +83,18 @@ example, `(100, 150, 250)`.
 
 ## Terminal properties
 
-| Terminal     | bold    | dark | underline | blink      | reverse | concealed |
-| ------------ | ------- | ---- | --------- | ---------- | ------- | --------- |
-| xterm        | yes     | no   | yes       | bold       | yes     | yes       |
-| linux        | yes     | yes  | bold      | yes        | yes     | no        |
-| rxvt         | yes     | no   | yes       | bold/black | yes     | no        |
-| dtterm       | yes     | yes  | yes       | reverse    | yes     | yes       |
-| teraterm     | reverse | no   | yes       | rev/red    | yes     | no        |
-| aixterm      | normal  | no   | yes       | no         | yes     | yes       |
-| PuTTY        | color   | no   | yes       | no         | yes     | no        |
-| Windows      | no      | no   | no        | no         | yes     | no        |
-| Cygwin SSH   | yes     | no   | color     | color      | color   | yes       |
-| Mac Terminal | yes     | no   | yes       | yes        | yes     | yes       |
+| Terminal     | bold    | dark | italic | underline | blink      | reverse | concealed |
+| ------------ | ------- | ---- | ------ | --------- | ---------- | ------- | --------- |
+| xterm        | yes     | no   | yes    | yes       | bold       | yes     | yes       |
+| linux        | yes     | yes  | color  | bold      | yes        | yes     | no        |
+| rxvt         | yes     | no   | yes    | yes       | bold/black | yes     | no        |
+| dtterm       | yes     | yes  | ?      | yes       | reverse    | yes     | yes       |
+| teraterm     | reverse | no   | ?      | yes       | rev/red    | yes     | no        |
+| aixterm      | normal  | no   | ?      | yes       | no         | yes     | yes       |
+| PuTTY        | color   | no   | no     | yes       | no         | yes     | no        |
+| Windows      | no      | no   | no     | no        | no         | yes     | no        |
+| Cygwin SSH   | yes     | no   | ?      | color     | color      | color   | yes       |
+| Mac Terminal | yes     | no   | yes    | yes       | yes        | yes     | yes       |
 
 ## Overrides
 
