@@ -24,7 +24,6 @@
 
 from __future__ import annotations
 
-import io
 import os
 import sys
 from functools import cache
@@ -121,7 +120,7 @@ def can_colorize(
 
     try:
         return os.isatty(sys.stdout.fileno())
-    except io.UnsupportedOperation:
+    except OSError:
         return sys.stdout.isatty()
 
 
