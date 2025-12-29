@@ -47,6 +47,7 @@ if __name__ == "__main__":
     print("Test attributes:")
     cprint("Bold black color", "black", attrs=["bold"])
     cprint("Dark red color", "red", attrs=["dark"])
+    cprint("Italic blue color", "blue", attrs=["italic"])
     cprint("Underline green color", "green", attrs=["underline"])
     cprint("Blink yellow color", "yellow", attrs=["blink"])
     cprint("Reversed blue color", "blue", attrs=["reverse"])

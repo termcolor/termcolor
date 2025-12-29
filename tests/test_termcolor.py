@@ -152,6 +152,7 @@ def test_on_color(
     [
         ("bold", "\x1b[1mtext\x1b[0m"),
         ("dark", "\x1b[2mtext\x1b[0m"),
+        ("italic", "\x1b[3mtext\x1b[0m"),
         ("underline", "\x1b[4mtext\x1b[0m"),
         ("blink", "\x1b[5mtext\x1b[0m"),
         ("reverse", "\x1b[7mtext\x1b[0m"),
