@@ -385,3 +385,19 @@ def test_cprint_kwargs(
 
     # Act / Assert
     assert_cprint(capsys, expected, "text", color="cyan", **kwargs)
+
+
+@pytest.mark.parametrize(
+    "rgb",
+    [
+        (-1, 0, 0),
+        (0, 0, 256),
+        (0, 0),
+        (0, 0, 0, 0),
+    ],
+)
+def test_invalid_rgb(rgb: tuple[int, ...]) -> None:
+    with pytest.raises(ValueError, match="Expected a tuple of 3 ints in range 0-255"):
+        colored("text", color=rgb, force_color=True)  # type: ignore[arg-type]
+    with pytest.raises(ValueError, match="Expected a tuple of 3 ints in range 0-255"):
+        colored("text", on_color=rgb, force_color=True)  # type: ignore[arg-type]

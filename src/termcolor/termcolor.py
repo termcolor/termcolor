@@ -125,6 +125,12 @@ def can_colorize(
         return sys.stdout.isatty()
 
 
+def _check_rgb(rgb: tuple[int, int, int]) -> None:
+    if len(rgb) != 3 or not all(0 <= c <= 255 for c in rgb):
+        msg = f"Expected a tuple of 3 ints in range 0-255, got {rgb!r}"
+        raise ValueError(msg)
+
+
 def colored(
     text: object,
     color: str | tuple[int, int, int] | None = None,
@@ -168,12 +174,14 @@ def colored(
         if isinstance(color, str):
             result = fmt_str % (COLORS[color], result)
         elif isinstance(color, tuple):
+            _check_rgb(color)
             result = rgb_fore_fmt_str % (color[0], color[1], color[2], result)
 
     if on_color is not None:
         if isinstance(on_color, str):
             result = fmt_str % (HIGHLIGHTS[on_color], result)
         elif isinstance(on_color, tuple):
+            _check_rgb(on_color)
             result = rgb_back_fmt_str % (on_color[0], on_color[1], on_color[2], result)
 
     if attrs is not None:
