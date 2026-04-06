@@ -53,13 +53,10 @@ urls.Source = "https://github.com/termcolor/termcolor"
 
 [tool.hatch]
 version.source = "vcs"
-
-[tool.hatch.version.raw-options]
-local_scheme = "no-local-version"
+version.raw-options.local_scheme = "no-local-version"
 
 [tool.ruff]
 fix = true
-
 lint.select = [
   "C4",     # flake8-comprehensions
   "E",      # pycodestyle errors
@@ -96,21 +93,17 @@ lint.future-annotations = true
 [tool.pyproject-fmt]
 max_supported_python = "3.15"
 
-[tool.pytest.ini_options]
-testpaths = [ "tests" ]
+[tool.pytest]
+ini_options.testpaths = [ "tests" ]
 
-[tool.coverage.run]
-branch = true
-omit = [
+[tool.coverage]
+run.branch = true
+run.omit = [
   "**/__main__.py",
 ]
-
-[tool.coverage.html]
-show_contexts = true
-
-[tool.coverage.report]
 # Regexes for lines to exclude from consideration
-exclude_also = [
+report.exclude_also = [
   # Don't complain if non-runnable code isn't run:
   "if __name__ == .__main__.:",
 ]
+html.show_contexts = true
