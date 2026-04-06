@@ -44,7 +44,7 @@ classifiers = [
 ]
 dynamic = [ "version" ]
 optional-dependencies.tests = [
-  "pytest",
+  "pytest>=9",
   "pytest-cov",
 ]
 urls.Changelog = "https://github.com/termcolor/termcolor/releases"
@@ -94,7 +94,8 @@ lint.future-annotations = true
 max_supported_python = "3.15"
 
 [tool.pytest]
-ini_options.testpaths = [ "tests" ]
+minversion = "9.0"
+testpaths = [ "tests" ]
 
 [tool.coverage]
 run.branch = true
