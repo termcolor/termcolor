@@ -1,5 +1,5 @@
 # Security policy
 
-To report sensitive vulnerability information, please use the
-[Tidelift security contact](https://tidelift.com/security). Tidelift will coordinate the
-fix and disclosure.
+To report a security issue, either report it privately
+[on GitHub](https://github.com/termcolor/termcolor/security) (preferred) or through the
+[Tidelift security contact](https://tidelift.com/security). Do not
