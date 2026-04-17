@@ -55,6 +55,12 @@ urls.Source = "https://github.com/termcolor/termcolor"
 version.source = "vcs"
 version.raw-options.local_scheme = "no-local-version"
 
+[tool.hatch.build.targets.wheel]
+exclude = [ "tests" ]
+
+[tool.hatch.build.targets.sdist]
+exclude = [ "tests" ]
+
 [tool.ruff]
 fix = true
 lint.select = [
