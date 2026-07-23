@@ -59,9 +59,12 @@ jobs:
 
       - name: Upload coverage report
         if: |
-          github.ref == 'refs/heads/main' ||
-          (github.event_name == 'pull_request' &&
-          github.event.pull_request.head.repo.full_name == github.repository)
+          (github.event_name == 'push'
+           && github.ref == 'refs/heads/main'
+           && github.event.repository.fork == false)
+          ||
+          (github.event_name == 'pull_request'
+           && github.event.pull_request.head.repo.full_name == github.repository)
         uses: actions/upload-code-coverage@1c15be36fc3733ba839b1dd643bd9556e4426dc1 # v1.4.1
         with:
           file: coverage.xml
