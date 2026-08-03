@@ -88,6 +88,9 @@ COLORS: dict[str, int] = {
 
 RESET = "\033[0m"
 
+_RGB_FORE_FMT = "38;2;%d;%d;%d"
+_RGB_BACK_FMT = "48;2;%d;%d;%d"
+
 
 @cache
 def can_colorize(
@@ -167,26 +170,28 @@ def colored(
     if not can_colorize(no_color=no_color, force_color=force_color):
         return result
 
-    fmt_str = "\033[%dm%s"
-    rgb_fore_fmt_str = "\033[38;2;%d;%d;%dm%s"
-    rgb_back_fmt_str = "\033[48;2;%d;%d;%dm%s"
-    if color is not None:
-        if isinstance(color, str):
-            result = fmt_str % (COLORS[color], result)
-        elif isinstance(color, tuple):
-            _check_rgb(color)
-            result = rgb_fore_fmt_str % (color[0], color[1], color[2], result)
-
-    if on_color is not None:
-        if isinstance(on_color, str):
-            result = fmt_str % (HIGHLIGHTS[on_color], result)
-        elif isinstance(on_color, tuple):
-            _check_rgb(on_color)
-            result = rgb_back_fmt_str % (on_color[0], on_color[1], on_color[2], result)
+    codes = []
 
     if attrs is not None:
         for attr in attrs:
-            result = fmt_str % (ATTRIBUTES[attr], result)
+            codes.append(str(ATTRIBUTES[attr]))  # noqa: PERF401  # faster than extend
+
+    if color is not None:
+        if isinstance(color, str):
+            codes.append(str(COLORS[color]))
+        elif isinstance(color, tuple):
+            _check_rgb(color)
+            codes.append(_RGB_FORE_FMT % color)
+
+    if on_color is not None:
+        if isinstance(on_color, str):
+            codes.append(str(HIGHLIGHTS[on_color]))
+        elif isinstance(on_color, tuple):
+            _check_rgb(on_color)
+            codes.append(_RGB_BACK_FMT % on_color)
+
+    if codes:
+        result = f"\033[{';'.join(codes)}m{result}"
 
     result += RESET
 
