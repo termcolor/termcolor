@@ -47,6 +47,7 @@ optional-dependencies.tests = [
   "pytest-codspeed",
   "pytest-cov",
 ]
+urls."Issue tracker" = "https://github.com/termcolor/termcolor/issues"
 urls.Changelog = "https://github.com/termcolor/termcolor/releases"
 urls.Homepage = "https://github.com/termcolor/termcolor"
 urls.Source = "https://github.com/termcolor/termcolor"
