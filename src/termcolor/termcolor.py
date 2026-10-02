@@ -126,7 +126,11 @@ def can_colorize(
 
 
 def _check_rgb(rgb: tuple[int, int, int]) -> None:
-    if len(rgb) != 3 or not all(0 <= c <= 255 for c in rgb):
+    if (
+        len(rgb) != 3
+        or not all(isinstance(c, int) and not isinstance(c, bool) for c in rgb)
+        or not all(0 <= c <= 255 for c in rgb)
+    ):
         msg = f"Expected a tuple of 3 ints in range 0-255, got {rgb!r}"
         raise ValueError(msg)
 
