@@ -104,12 +104,12 @@ minversion = "9.0"
 testpaths = [ "tests" ]
 
 [tool.coverage]
-run.branch = true
-run.core = "sysmon"  # default for 3.14+, available for 3.12+
-run.disable_warnings = [ "no-sysmon" ]  # 3.11 and earlier
 run.omit = [
   "**/__main__.py",
 ]
+run.branch = true
+run.disable_warnings = [ "no-sysmon" ]  # 3.11 and earlier
+run.core = "sysmon"  # default for 3.14+, available for 3.12+
 # Regexes for lines to exclude from consideration
 report.exclude_also = [
   # Don't complain if non-runnable code isn't run:
