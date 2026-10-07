@@ -44,6 +44,7 @@ classifiers = [
 dynamic = [ "version" ]
 optional-dependencies.tests = [
   "pytest>=9",
+  "pytest-codspeed",
   "pytest-cov",
 ]
 urls.Changelog = "https://github.com/termcolor/termcolor/releases"
