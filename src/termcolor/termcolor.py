@@ -167,7 +167,11 @@ def colored(
         colored('Hello, World!', (255, 0, 255))  # Purple
     """
     result = str(text)
-    if not can_colorize(no_color=no_color, force_color=force_color):
+    if no_color is None and force_color is None:
+        # Fast path: functools.cache has a much cheaper key for no arguments
+        if not can_colorize():
+            return result
+    elif not can_colorize(no_color=no_color, force_color=force_color):
         return result
 
     codes = []
