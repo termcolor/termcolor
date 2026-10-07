@@ -46,7 +46,7 @@ repos:
       - id: mypy
         args: [--strict, --pretty, --show-error-codes, src, tests]
         pass_filenames: false
-        additional_dependencies: [pytest]
+        additional_dependencies: [pytest, pytest-codspeed]
 
   - repo: https://github.com/tox-dev/pyproject-fmt
     rev: v2.30.1
