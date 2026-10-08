@@ -1,0 +1,6 @@
+# TODO Remove when actionlint knows the code-quality permission scope:
+# https://github.com/rhysd/actionlint/issues/672
+paths:
+  .github/workflows/test.yml:
+    ignore:
+      - 'unknown permission scope "code-quality"'
