@@ -391,6 +391,8 @@ def test_cprint_kwargs(
         (0, 0, 256),
         (0, 0),
         (0, 0, 0, 0),
+        (1.5, 0, 0),
+        (True, 0, 0),
     ],
 )
 def test_invalid_rgb(rgb: tuple[int, ...]) -> None:
