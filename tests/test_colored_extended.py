@@ -14,7 +14,7 @@ before being written down. Notable current behaviour pinned here:
   compatibility; they are *not* a separate grey.
 """
 
-import os
+from __future__ import annotations
 
 import pytest
 
@@ -29,6 +29,7 @@ def _clear_can_colorize_cache():
 
 
 # ---------------------------------------------------------------- colors
+
 
 @pytest.mark.parametrize(
     "name,code",
@@ -57,17 +58,27 @@ def test_every_attribute(name, code):
 def test_grey_is_black_alias():
     assert COLORS["grey"] == COLORS["black"] == 30
     assert HIGHLIGHTS["on_grey"] == HIGHLIGHTS["on_black"] == 40
-    assert colored("x", "grey", force_color=True) == colored("x", "black", force_color=True)
+    assert colored("x", "grey", force_color=True) == colored(
+        "x", "black", force_color=True
+    )
 
 
 def test_code_order_is_attrs_then_color_then_highlight():
     # Regardless of argument order, attrs come first, then colour, then highlight.
-    assert colored("x", "red", "on_blue", ["bold"], force_color=True) == "\x1b[1;31;44mx\x1b[0m"
-    assert colored("x", "red", "on_blue", ["bold", "underline"], force_color=True) == "\x1b[1;4;31;44mx\x1b[0m"
+    assert (
+        colored("x", "red", "on_blue", ["bold"], force_color=True)
+        == "\x1b[1;31;44mx\x1b[0m"
+    )
+    assert (
+        colored("x", "red", "on_blue", ["bold", "underline"], force_color=True)
+        == "\x1b[1;4;31;44mx\x1b[0m"
+    )
 
 
 def test_multiple_attrs_keep_given_order():
-    assert colored("x", attrs=["strike", "bold"], force_color=True) == "\x1b[9;1mx\x1b[0m"
+    assert (
+        colored("x", attrs=["strike", "bold"], force_color=True) == "\x1b[9;1mx\x1b[0m"
+    )
 
 
 def test_no_codes_still_appends_reset_when_enabled():
@@ -108,6 +119,7 @@ def test_one_bad_attribute_aborts_whole_call():
 
 
 # ---------------------------------------------------------------- RGB
+
 
 @pytest.mark.parametrize(
     "rgb,expected",
@@ -157,6 +169,7 @@ def test_invalid_rgb_raises_value_error(bad):
 
 
 # ------------------------------------------------------- enable / disable
+
 
 def test_no_color_kwarg_wins_over_force_color_kwarg():
     # no_color is checked first in can_colorize.
@@ -218,6 +231,7 @@ def test_colored_without_overrides_follows_env(monkeypatch):
 
 
 # ---------------------------------------------------------------- cprint
+
 
 def test_cprint_writes_colored_line(capsys):
     cprint("hello", "green", force_color=True)

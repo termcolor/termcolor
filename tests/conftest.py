@@ -4,6 +4,8 @@ Tries, in order: this workdir's ``termcolor-src/src`` checkout and the
 repo root's ``src`` layout (the layout the PR targets).
 """
 
+from __future__ import annotations
+
 import os
 import sys
 
