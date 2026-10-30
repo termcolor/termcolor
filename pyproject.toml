@@ -110,7 +110,7 @@ run.omit = [
   "**/__main__.py",
 ]
 run.branch = true
-run.disable_warnings = [ "no-sysmon" ]  # 3.11 and earlier
+run.disable_warnings = [ "no-sysmon" ]  # 3.11
 run.core = "sysmon"  # default for 3.14+, available for 3.12+
 # Regexes for lines to exclude from consideration
 report.exclude_also = [
