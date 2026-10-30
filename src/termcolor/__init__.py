@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+__lazy_modules__ = {"termcolor.termcolor"}
+
 from termcolor.termcolor import (
     ATTRIBUTES,
     COLORS,
