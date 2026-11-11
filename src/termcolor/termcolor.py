@@ -184,7 +184,7 @@ def colored(
                     f"Choose from: {', '.join(sorted(ATTRIBUTES))}."
                 )
                 raise ValueError(msg)
-            codes.append(str(ATTRIBUTES[attr]))  # noqa: PERF401  # faster than extend
+            codes.append(str(ATTRIBUTES[attr]))  # faster than extend
 
     if color is not None:
         if isinstance(color, str):
