@@ -178,10 +178,22 @@ def colored(
 
     if attrs is not None:
         for attr in attrs:
-            codes.append(str(ATTRIBUTES[attr]))  # noqa: PERF401  # faster than extend
+            if attr not in ATTRIBUTES:
+                msg = (
+                    f"Unknown attribute {attr!r}. "
+                    f"Choose from: {', '.join(sorted(ATTRIBUTES))}."
+                )
+                raise ValueError(msg)
+            codes.append(str(ATTRIBUTES[attr]))  # faster than extend
 
     if color is not None:
         if isinstance(color, str):
+            if color not in COLORS:
+                msg = (
+                    f"Unknown color {color!r}. "
+                    f"Choose from: {', '.join(sorted(COLORS))}."
+                )
+                raise ValueError(msg)
             codes.append(str(COLORS[color]))
         elif isinstance(color, tuple):
             _check_rgb(color)
@@ -189,6 +201,12 @@ def colored(
 
     if on_color is not None:
         if isinstance(on_color, str):
+            if on_color not in HIGHLIGHTS:
+                msg = (
+                    f"Unknown highlight {on_color!r}. "
+                    f"Choose from: {', '.join(sorted(HIGHLIGHTS))}."
+                )
+                raise ValueError(msg)
             codes.append(str(HIGHLIGHTS[on_color]))
         elif isinstance(on_color, tuple):
             _check_rgb(on_color)

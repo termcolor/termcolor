@@ -398,3 +398,16 @@ def test_invalid_rgb(rgb: tuple[int, ...]) -> None:
         colored("text", color=rgb, force_color=True)  # type: ignore[arg-type]
     with pytest.raises(ValueError, match="Expected a tuple of 3 ints in range 0-255"):
         colored("text", on_color=rgb, force_color=True)  # type: ignore[arg-type]
+
+
+@pytest.mark.parametrize(
+    ("kwargs", "match"),
+    [
+        ({"color": "reed"}, "Unknown color 'reed'"),
+        ({"on_color": "on_reed"}, "Unknown highlight 'on_reed'"),
+        ({"attrs": ["boldd"]}, "Unknown attribute 'boldd'"),
+    ],
+)
+def test_unknown_names_raise_value_error(kwargs: dict, match: str) -> None:
+    with pytest.raises(ValueError, match=match):
+        colored("text", force_color=True, **kwargs)
