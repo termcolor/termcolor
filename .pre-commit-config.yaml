@@ -7,7 +7,7 @@ priorities:
 
 repos:
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.17.3
+    rev: v0.17.5
     hooks:
       - id: ruff-check
         args: [--exit-non-zero-on-fix]
@@ -58,7 +58,7 @@ repos:
         priority: check
 
   - repo: https://github.com/zizmorcore/zizmor-pre-commit
-    rev: v1.31.1
+    rev: v1.32.0
     hooks:
       - id: zizmor
         priority: check
@@ -73,7 +73,7 @@ repos:
         priority: check
 
   - repo: https://github.com/tox-dev/pyproject-fmt
-    rev: v2.30.3
+    rev: v2.30.6
     hooks:
       - id: pyproject-fmt
         priority: fix
@@ -85,7 +85,7 @@ repos:
         priority: check
 
   - repo: https://github.com/tox-dev/tox-ini-fmt
-    rev: 1.10.1
+    rev: 1.10.2
     hooks:
       - id: tox-ini-fmt
         priority: fix
@@ -97,7 +97,7 @@ repos:
         priority: fix
 
   - repo: https://github.com/rbubley/mirrors-prettier
-    rev: v3.9.10
+    rev: v3.10.1
     hooks:
       - id: prettier
         args: [--prose-wrap=always, --print-width=88]
