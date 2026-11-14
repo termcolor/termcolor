@@ -24,7 +24,7 @@ def setup_module() -> None:
 
 
 @pytest.fixture(autouse=True)
-def clear_lru_cache() -> Generator[Any, None, None]:
+def clear_lru_cache() -> Generator[Any]:
     """
     Tests may override the underpinnings of the system-under-test,
     clear the cache after each test to ensure a clean slate.

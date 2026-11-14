@@ -30,3 +30,6 @@ src/*/_version.py
 
 # Mutation Testing artifacts
 mutants/
+
+# Benchmarks
+.codspeed/
