@@ -57,6 +57,52 @@ cprint("Attention!", "red", attrs=["bold"], file=sys.stderr)
 cprint("Both foreground and background can use tuples", (100, 150, 250), (50, 60, 70))
 ```
 
+## Codes
+
+Each colour and attribute is also available as a code. In an f-string, or added to a
+string, it switches the style on. Called with text, it wraps the text in the style and
+switches only that style off again, so different kinds of style can be nested:
+
+```python
+from termcolor import bold, italic, on_blue, red, reset
+
+print(f"{red}{on_blue}Hello{reset} {italic}World{reset}")
+print(bold(red("Hello")) + " " + italic("World"))
+print(bold(f"{red('Hello')}, World!"))  # still bold after the red
+```
+
+The codes are also grouped in `termcolor.fg`, `termcolor.bg` and `termcolor.attrs`, with
+short names:
+
+```python
+from termcolor import attrs, bg, fg, italic, on_blue, red, reset
+
+# fg.red is red, and bg.blue is on_blue
+print(f"{attrs.bold}{fg.red}{bg.blue}Hello{reset} {italic}{red}{on_blue}World{reset}")
+```
+
+For RGB colours, use `fg.rgb(100, 150, 250)` and `bg.rgb(50, 60, 70)`.
+
+Nesting the same kind of style, such as two foreground colours, switches back to the
+terminal default rather than the outer style:
+
+```python
+from termcolor import blue, red
+
+print(red(f"Error in {blue('config.toml')}: not found"))  # ": not found" is not red
+```
+
+When colour is disabled (see [Overrides](#overrides)), the string form is empty and
+calling a code returns the text unchanged. The call form also accepts `no_color` and
+`force_color` overrides, like `colored`:
+
+```python
+from termcolor import red
+
+print(red("Hello", force_color=True))  # colour even when piped to a file
+print(red("Hello", no_color=True))  # never colour
+```
+
 ## Text properties
 
 | Text colors     | Text highlights    | Attributes  |
@@ -102,8 +148,8 @@ Terminal colour detection can be disabled or enabled in several ways.
 
 In order of precedence:
 
-1. Calling `colored` or `cprint` with a truthy `no_color` disables colour.
-2. Calling `colored` or `cprint` with a truthy `force_color` forces colour.
+1. Calling `colored`, `cprint` or a code with a truthy `no_color` disables colour.
+2. Calling `colored`, `cprint` or a code with a truthy `force_color` forces colour.
 3. Setting the `ANSI_COLORS_DISABLED` environment variable to any non-empty value
    disables colour.
 4. Setting the [`NO_COLOR`](https://no-color.org/) environment variable to any non-empty

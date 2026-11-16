@@ -4,7 +4,7 @@ import os
 
 import pytest
 
-from termcolor import ATTRIBUTES, COLORS, HIGHLIGHTS, colored, cprint, termcolor
+from termcolor import ATTRIBUTES, COLORS, HIGHLIGHTS, colored, cprint, red, termcolor
 
 TYPE_CHECKING = False
 if TYPE_CHECKING:
@@ -89,7 +89,6 @@ def assert_cprint(
         ("light_blue", "\x1b[94mtext\x1b[0m"),
         ((1, 2, 3), "\x1b[38;2;1;2;3mtext\x1b[0m"),
         ((100, 200, 150), "\x1b[38;2;100;200;150mtext\x1b[0m"),
-        (000, "text\x1b[0m"),  # invalid input type
     ],
 )
 def test_color(
@@ -125,7 +124,6 @@ def test_color(
         ("on_light_blue", "\x1b[104mtext\x1b[0m"),
         ((1, 2, 3), "\x1b[48;2;1;2;3mtext\x1b[0m"),
         ((100, 200, 150), "\x1b[48;2;100;200;150mtext\x1b[0m"),
-        (000, "text\x1b[0m"),  # invalid input type
     ],
 )
 def test_on_color(
@@ -398,3 +396,13 @@ def test_invalid_rgb(rgb: tuple[int, ...]) -> None:
         colored("text", color=rgb, force_color=True)  # type: ignore[arg-type]
     with pytest.raises(ValueError, match="Expected a tuple of 3 ints in range 0-255"):
         colored("text", on_color=rgb, force_color=True)  # type: ignore[arg-type]
+
+
+@pytest.mark.parametrize("color", [[255, 0, 0], 255, red])
+def test_invalid_color_type(color: Any) -> None:
+    with pytest.raises(TypeError, match="Expected a color name or a tuple of 3 ints"):
+        colored("text", color, force_color=True)
+    with pytest.raises(
+        TypeError, match="Expected a highlight name or a tuple of 3 ints"
+    ):
+        colored("text", on_color=color, force_color=True)

@@ -134,6 +134,110 @@ def _check_rgb(rgb: tuple[int, int, int]) -> None:
         raise ValueError(msg)
 
 
+class _Escape:
+    """An ANSI escape sequence with a lazy string form.
+
+    As a string, it is the sequence, or the empty string when colour is
+    disabled (see can_colorize). This is decided when it is used, not when it
+    is created, using the same cached check as colored().
+    """
+
+    __slots__ = ("_on",)
+
+    def __init__(self, on: str) -> None:
+        self._on = on
+
+    def __str__(self) -> str:
+        return self._on if can_colorize() else ""
+
+    def __format__(self, format_spec: str) -> str:
+        if format_spec:
+            msg = (
+                f"unsupported format string passed to {type(self).__name__}.__format__"
+            )
+            raise TypeError(msg)
+        return self._on if can_colorize() else ""
+
+    def __add__(self, other: object) -> str:
+        if isinstance(other, (str, _Escape)):
+            return str(self) + str(other)
+        return NotImplemented
+
+    def __radd__(self, other: object) -> str:
+        if isinstance(other, str):
+            return other + str(self)
+        return NotImplemented
+
+    def _args(self) -> tuple[str, ...]:
+        return (self._on,)
+
+    def __eq__(self, other: object) -> bool:
+        if type(other) is type(self):
+            return self._on == other._on
+        return NotImplemented
+
+    def __hash__(self) -> int:
+        return hash(self._on)
+
+    def __reduce__(self) -> tuple[type[_Escape], tuple[str, ...]]:
+        return (type(self), self._args())
+
+    def __repr__(self) -> str:
+        return f"{type(self).__name__}({', '.join(map(repr, self._args()))})"
+
+
+class _Code(_Escape):
+    """An ANSI escape code that works as a string and as a function.
+
+    As a string, it is the code to switch the style on, or the empty string
+    when colour is disabled (see can_colorize), so it can be used directly:
+
+        print(f"{red}Hello{reset}")
+
+    When called, it wraps the text in the code and the matching code to switch
+    only that style off again, so different kinds of style can be nested:
+
+        print(bold(f"{red('Hello')}, World!"))
+    """
+
+    __slots__ = ("_off",)
+
+    def __init__(self, on: str, off: str) -> None:
+        super().__init__(on)
+        self._off = off
+
+    def _args(self) -> tuple[str, ...]:
+        return (self._on, self._off)
+
+    def __eq__(self, other: object) -> bool:
+        if type(other) is type(self):
+            return self._on == other._on and self._off == other._off
+        return NotImplemented
+
+    def __hash__(self) -> int:
+        return hash((self._on, self._off))
+
+    def __call__(
+        self,
+        text: object,
+        *,
+        no_color: bool | None = None,
+        force_color: bool | None = None,
+    ) -> str:
+        if no_color is None and force_color is None:
+            # Fast path: functools.cache has a much cheaper key for no arguments
+            enabled = can_colorize()
+        else:
+            enabled = can_colorize(no_color=no_color, force_color=force_color)
+        if not enabled:
+            return str(text)
+        return f"{self._on}{text!s}{self._off}"
+
+
+# Reset everything. Empty when colour is disabled, unlike the raw RESET constant.
+reset = _Escape(RESET)
+
+
 def colored(
     text: object,
     color: str | tuple[int, int, int] | None = None,
@@ -186,6 +290,9 @@ def colored(
         elif isinstance(color, tuple):
             _check_rgb(color)
             codes.append(_RGB_FORE_FMT % color)
+        else:
+            msg = f"Expected a color name or a tuple of 3 ints, got {color!r}"
+            raise TypeError(msg)
 
     if on_color is not None:
         if isinstance(on_color, str):
@@ -193,6 +300,9 @@ def colored(
         elif isinstance(on_color, tuple):
             _check_rgb(on_color)
             codes.append(_RGB_BACK_FMT % on_color)
+        else:
+            msg = f"Expected a highlight name or a tuple of 3 ints, got {on_color!r}"
+            raise TypeError(msg)
 
     if codes:
         result = f"\033[{';'.join(codes)}m{result}"

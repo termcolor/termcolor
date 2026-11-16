@@ -4,13 +4,23 @@ from __future__ import annotations
 
 import pytest
 
-from termcolor import ATTRIBUTES, colored, cprint, termcolor
+from termcolor import (
+    ATTRIBUTES,
+    RESET,
+    bold,
+    colored,
+    cprint,
+    red,
+    reset,
+    termcolor,
+)
 
 TYPE_CHECKING = False
 if TYPE_CHECKING:
     from pytest_codspeed import BenchmarkFixture
 
 TEXT = "Hello, World!"
+RED = "\033[31m"
 
 
 @pytest.fixture(autouse=True)
@@ -60,3 +70,33 @@ def test_can_colorize(benchmark: BenchmarkFixture) -> None:
 
 def test_cprint(benchmark: BenchmarkFixture) -> None:
     benchmark(cprint, TEXT, "red", "on_blue", ["bold"])
+
+
+def test_fstring_plain_str(benchmark: BenchmarkFixture) -> None:
+    # Reference point for test_code_fstring: plain str constants
+    def fstring() -> str:
+        return f"{RED}{TEXT}{RESET}"
+
+    benchmark(fstring)
+
+
+def test_code_fstring(benchmark: BenchmarkFixture) -> None:
+    def fstring() -> str:
+        return f"{red}{TEXT}{reset}"
+
+    benchmark(fstring)
+
+
+def test_code_call(benchmark: BenchmarkFixture) -> None:
+    benchmark(red, TEXT)
+
+
+def test_code_call_nested(benchmark: BenchmarkFixture) -> None:
+    def nested() -> str:
+        return bold(red(TEXT))
+
+    benchmark(nested)
+
+
+def test_code_call_force_color(benchmark: BenchmarkFixture) -> None:
+    benchmark(red, TEXT, force_color=True)
